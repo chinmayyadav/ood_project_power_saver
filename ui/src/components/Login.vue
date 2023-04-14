@@ -18,16 +18,16 @@
               <p>Sign in with your username and password:</p>
               <v-form>
                 <v-text-field
-                              outline
-                              label="Username"
-                              type="text"
-                              v-model="username"></v-text-field>
+                  outline
+                  label="Username"
+                  type="text"
+                  v-model="username"></v-text-field>
                 <v-text-field
-                              outline
-                              hide-details
-                              label="Password"
-                              type="password"
-                              v-model="password"></v-text-field>
+                  outline
+                  hide-details
+                  label="Password"
+                  type="password"
+                  v-model="password"></v-text-field>
               </v-form>
             </v-card-text>
             <v-divider></v-divider>
@@ -42,7 +42,7 @@
               </v-btn>
             </v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="info" :large="$vuetify.breakpoint.smAndUp">
+            <v-btn color="info" :large="$vuetify.breakpoint.smAndUp" style="margin: 1rem;">
                 <!-- <v-icon left>lock</v-icon> -->
                 New User? Register
             </v-btn>
@@ -80,6 +80,12 @@ export default {
   }),
   methods: {
     loginSubmit(){
+      this.$http.get('http://10.1.37.162:8090/greeting')
+      .then((res)=>{
+        console.log("res", res);
+      }).catch((err)=>{
+        console.log("err", err);
+      })
       this.$router.push({
         name:'dashboard'
       })
