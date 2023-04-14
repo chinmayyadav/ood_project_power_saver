@@ -25,7 +25,24 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../layouts/DashboardLayout.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../layouts/DashboardLayout.vue'),
+    children: [
+      {
+        // UserProfile will be rendered inside User's <router-view>
+        // when /user/:id/profile is matched
+        path: 'add-credit-card',
+        name: 'add-credit-card',
+        component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/AddCreditCard.vue'),
+      },
+      {
+        // UserPosts will be rendered inside User's <router-view>
+        // when /user/:id/posts is matched
+        path: 'add-bank-account',
+        name: 'add-bank-account',
+        component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/AddCreditCard.vue'),
+      },
+    ],
+
 
   },
   // {
