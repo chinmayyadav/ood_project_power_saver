@@ -10,7 +10,6 @@ public class PowerSaverHqApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PowerSaverHqApplication.class, args);
-		System.out.println("Ayush lawda");
 	}
 
 }
