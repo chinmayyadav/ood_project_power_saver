@@ -31,3 +31,7 @@ dist_electron
 dist
 .idea
 
+.idea
+
+target/
+/backend/PowerSaverHQ.iml

@@ -42,7 +42,6 @@ CREATE TABLE HomeAppliances(
 
 CREATE TABLE AddressApplianceMapping(
 	ID INT PRIMARY KEY AUTO_INCREMENT,
-    UserID INT NOT NULL,
     AddressID INT NOT NULL,
     ApplianceID INT NOT NULL,
     FOREIGN KEY (AddressID) REFERENCES UserAddress(ID),
