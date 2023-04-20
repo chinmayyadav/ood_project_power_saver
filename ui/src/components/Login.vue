@@ -42,7 +42,7 @@
               </v-btn>
             </v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="info" :large="$vuetify.breakpoint.smAndUp" style="margin: 1rem;">
+            <v-btn color="info" :large="$vuetify.breakpoint.smAndUp" style="margin: 1rem;" @click="$router.push({ name : 'Register' })">
                 <!-- <v-icon left>lock</v-icon> -->
                 New User? Register
             </v-btn>
@@ -80,7 +80,7 @@ export default {
   }),
   methods: {
     loginSubmit(){
-      this.$http.get('http://10.1.37.162:8090/greeting')
+      this.$http.get('http://localhost:8080/test-two')
       .then((res)=>{
         console.log("res", res);
       }).catch((err)=>{
