@@ -13,7 +13,7 @@ public class databaseConnection {
 
         try {
          Class.forName("com.mysql.cj.jdbc.Driver");
-        this.sql_connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/POWER_SAVER_HQ", "root", "root1234");
+        this.sql_connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/power_saver_hq", "root", "root1234");
 
 
     }
