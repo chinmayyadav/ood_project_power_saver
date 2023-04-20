@@ -9,7 +9,13 @@ import axios from 'axios'
 // import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 import '@/assets/scss/style.scss'
-Vue.prototype.$http = axios
+
+const userMicroserviceInstance = axios.create({
+  baseURL: 'http://localhost:8080/'
+});
+ 
+
+Vue.prototype.$userHttp = userMicroserviceInstance
 Vue.config.productionTip = false
 
 new Vue({

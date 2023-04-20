@@ -12,19 +12,19 @@ public class databaseConnection {
     public void establishConnection(){
 
         try {
-         Class.forName("com.mysql.cj.jdbc.Driver");
-        this.sql_connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/POWER_SAVER_HQ", "root", "root1234");
+             Class.forName("com.mysql.cj.jdbc.Driver");
+            this.sql_connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/POWER_SAVER_HQ", "root", "root1234");
 
 
-    }
-        catch (ClassNotFoundException E){
+        }
+        catch (ClassNotFoundException ignored){
 
 
-    }
+        }
         catch (SQLException SE){
-        System.out.println("SQL EXCEPTION");
-        System.out.println(SE.getMessage());
-    }
+            System.out.println("SQL EXCEPTION");
+            System.out.println(SE.getMessage());
+        }
     }
 
 

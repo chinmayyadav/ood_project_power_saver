@@ -47,7 +47,8 @@ CREATE TABLE AddressApplianceMapping(
     ApplianceID INT NOT NULL,
     FOREIGN KEY (AddressID) REFERENCES UserAddress(ID),
     FOREIGN KEY (UserID) REFERENCES UserDetails(ID),
-    FOREIGN KEY (ApplianceID) REFERENCES HomeAppliances(ID)
+    FOREIGN KEY (ApplianceID) REFERENCES HomeAppliances(ID),
+
 );
 
 CREATE TABLE NotificationPreferences(
