@@ -4,19 +4,29 @@ public class ApplianceDetails {
     private int addID;
     private int applianceID;
     private int count;
-    private float hours;
+    private int hours;
     private int days;
+    private float rating;
 
-    public ApplianceDetails(int addID, int applianceID, int count, float hours, int days){
+    public ApplianceDetails(int addID, int applianceID, int count, int hours, int days, float rating){
         this.addID = addID;
         this.applianceID = applianceID;
         this.count = count;
         this.hours = hours;
         this.days = days;
+        this.rating = rating;
     }
 
     public int getAddID() {
         return addID;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     public void setAddID(int addID) {
@@ -39,11 +49,11 @@ public class ApplianceDetails {
         this.count = count;
     }
 
-    public float getHours() {
+    public int getHours() {
         return hours;
     }
 
-    public void setHours(float hours) {
+    public void setHours(int hours) {
         this.hours = hours;
     }
 
