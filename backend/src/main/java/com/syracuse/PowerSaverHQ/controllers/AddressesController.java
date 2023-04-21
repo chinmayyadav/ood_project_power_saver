@@ -21,6 +21,12 @@ public class AddressesController {
         jsObj.put("Data", addressServices.getAddressesUser(userDetails));
         return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
     }
+    @RequestMapping(value = "/get-addresses-by-id",headers = "Accept=application/json", method = RequestMethod.POST)
+    public ResponseEntity<Object> getAddressesID(@RequestBody UserDetails userDetails) {
+        JSONObject jsObj = new JSONObject();
+        jsObj.put("Data", addressServices.getAddressesID(userDetails));
+        return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/save-address-for-user",headers = "Accept=application/json", method = RequestMethod.POST)
     public ResponseEntity<Object> saveAddress(@RequestBody AddressesDetails addressesDetails) {

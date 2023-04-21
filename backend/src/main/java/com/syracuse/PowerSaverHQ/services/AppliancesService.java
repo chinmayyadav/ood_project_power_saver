@@ -2,6 +2,7 @@ package com.syracuse.PowerSaverHQ.services;
 
 import com.syracuse.PowerSaverHQ.models.ApplianceDetails;
 import com.syracuse.PowerSaverHQ.models.UserDetails;
+import com.syracuse.PowerSaverHQ.utils.Constants;
 import com.syracuse.PowerSaverHQ.utils.databaseConnection;
 import org.json.JSONArray;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,7 @@ public class AppliancesService extends databaseConnection {
         return null;
     }
 
-    public boolean addAppliances(ApplianceDetails applianceDetails){
+    public String addAppliances(ApplianceDetails applianceDetails){
         try{
             int addID = applianceDetails.getAddID();
             int applianceID = applianceDetails.getApplianceID();
@@ -56,12 +57,12 @@ public class AppliancesService extends databaseConnection {
 
             stmt.executeUpdate();
 
-            return true;
+            return Constants.STATUS_SUCCESS;
 
         }catch (Exception e){
             System.out.println(e);
         }
-        return false;
+        return Constants.STATUS_ERROR;
     }
 
     public JSONArray getUserApplianceData(UserDetails userDetails) {

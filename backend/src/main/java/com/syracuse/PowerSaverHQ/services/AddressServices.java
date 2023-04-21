@@ -2,6 +2,8 @@ package com.syracuse.PowerSaverHQ.services;
 
 import com.syracuse.PowerSaverHQ.models.AddressesDetails;
 import com.syracuse.PowerSaverHQ.models.UserDetails;
+import com.syracuse.PowerSaverHQ.utils.Constants;
+import org.apache.tomcat.util.bcel.Const;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -40,7 +42,7 @@ public class AddressServices extends databaseConnection{
         return null;
     }
 
-    public boolean saveAddressUser(AddressesDetails addressesDetails) {
+    public String saveAddressUser(AddressesDetails addressesDetails) {
         try{
             int userID = addressesDetails.getUserID();
             String add1 = addressesDetails.getAddressLine1();
@@ -60,10 +62,38 @@ public class AddressServices extends databaseConnection{
             stmt.setInt(6, zipcode);
             stmt.setInt(7, aptno);
 
-            return true;
+            stmt.executeUpdate();
+
+            return Constants.STATUS_SUCCESS;
 
         }catch(Exception e) {
-            return false;
+            return Constants.STATUS_ERROR;
         }
+    }
+
+    public JSONArray getAddressesID(UserDetails userDetails) {
+        try{
+            String query = "SELECT AddressLine1, AddressLine2, City, State, ZipCode, ApartmentNumber FROM UserAddress WHERE ID = ?";
+            PreparedStatement pstmt = sql_connection.prepareStatement(query);
+            pstmt.setFloat(1, userDetails.getAddressID());
+            ResultSet rs = pstmt.executeQuery();
+            JSONArray jsonArray = new JSONArray();
+            while(rs.next()){
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("AddressLine1", rs.getString("AddressLine1"));
+                jsonObject.put("AddressLine2", rs.getString("AddressLine2"));
+                jsonObject.put("City", rs.getString("City"));
+                jsonObject.put("State", rs.getString("State"));
+                jsonObject.put("ZipCode", rs.getInt("ZipCode"));
+                jsonObject.put("ApartmentNumber", rs.getInt("ApartmentNumber"));
+                jsonArray.put(jsonObject);
+            }
+
+            return jsonArray;
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
+        return null;
     }
 }
