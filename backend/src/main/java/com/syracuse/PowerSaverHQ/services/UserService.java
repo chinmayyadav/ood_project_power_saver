@@ -2,7 +2,10 @@ package com.syracuse.PowerSaverHQ.services;
 
 
 import com.syracuse.PowerSaverHQ.models.UserDetails;
+import com.syracuse.PowerSaverHQ.utils.Constants;
 import com.syracuse.PowerSaverHQ.utils.databaseConnection;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -15,7 +18,7 @@ import static com.syracuse.PowerSaverHQ.utils.generateAccountNumber.generateAcco
 
 @Service
 public class UserService extends databaseConnection {
-    public Boolean RegisterUser(UserDetails user) {
+    public String RegisterUser(UserDetails user) {
 
 
             try {
@@ -34,14 +37,46 @@ public class UserService extends databaseConnection {
             stmt.setString(4, Password);
             stmt.setString(5, AccountNumber);
             int row = stmt.executeUpdate();
-            return true;
+            return Constants.STATUS_SUCCESS;
         }
-
         catch (SQLException SE){
-                    System.out.println("SQL SERVER ERROR");
-                    System.out.println(SE.getMessage());
-                    return false;
+            System.out.println("SQL SERVER ERROR");
+            System.out.println(SE.getMessage());
+            System.out.println(SE.getErrorCode());
+            int errorCode = SE.getErrorCode();
+            if(errorCode == 1062){
+                return Constants.DUPLICATE_EMAIL;
+
+            }
+            return Constants.STATUS_ERROR;
         }
 
+    }
+
+    public JSONArray Login(UserDetails user){
+        try{
+            System.out.println(user.getEmail() + "  " + user.getPassword());
+            String query = "Select * from UserDetails where Email = ? and Password = ?";
+            PreparedStatement pstmt = sql_connection.prepareStatement(query);
+            pstmt.setString(1, user.getEmail());
+            pstmt.setString(2, user.getPassword());
+            ResultSet rs = pstmt.executeQuery();
+            JSONArray jsonArray = new JSONArray();
+            while(rs.next()){
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("FirstName", rs.getString("FirstName"));
+                jsonObject.put("LastName", rs.getString("LastName"));
+                jsonObject.put("AccountNumber", rs.getString("AccountNumber"));
+                jsonObject.put("Email", rs.getString("Email"));
+                jsonArray.put(jsonObject);
+            }
+            return jsonArray;
+        } catch (Exception e) {
+            JSONArray jsonArray = new JSONArray();
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("Data", Constants.STATUS_ERROR);
+            jsonArray.put(jsonObject);
+            return jsonArray;
+        }
     }
 }

@@ -78,17 +78,32 @@ export default {
       },
     ],
   }),
+  mounted() {
+  },
   methods: {
     loginSubmit(){
-      this.$http.get('http://localhost:8080/test-two')
-      .then((res)=>{
+      this.$userHttp.post('login', {
+        email: this.username,
+        password: this.password
+      })
+      .then(({data})=>{
+        console.log(data);
+        if(data.Result.length > 0){
+          this.$session.start();
+          for(const obj in data.Result[0]){
+            this.$session.set(obj, data.Result[0][obj])
+          }
+          this.$router.push({
+            name: "dashboard"
+          })
+        }
         console.log("res", res);
       }).catch((err)=>{
         console.log("err", err);
       })
-      this.$router.push({
-        name:'dashboard'
-      })
+      // this.$router.push({
+      //   name:'dashboard'
+      // })
     }
   }
 };
