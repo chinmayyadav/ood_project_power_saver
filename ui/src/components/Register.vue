@@ -24,8 +24,17 @@
                   <label for="password" class="form-label">Password:</label>
                   <input type="password" class="form-control" id="password" v-model="password" required>
                 </div>
+                <div class="mb-3"></div>
+                <!-- <label for="password" class="form-label">  Select Appliacnce </label> -->
+
+                <!-- <select class="form-control" name="" id="">
+                  <option v-for="(key, index) in appliances" :key="index">
+                    {{ key.name }}
+                  </option>
+                </select> -->
                 <button type="submit" class="btn btn-primary w-100">Register</button>
               </form>
+                <button type="button" class="btn btn-primary w-100 mt-5" @click="$router.push({name: 'login'})">Login</button>
             </div>
           </div>
         </div>
@@ -40,9 +49,13 @@
         firstName: "",
         lastName: "",
         email: "",
-        password: ""
+        password: "",
+        appliances: [],
       };
     },
+    mounted(){
+      this.getAllAppliances();
+    },  
     methods: {
       registerUser() {
         // Code to register user with the given details
@@ -53,9 +66,40 @@
           email: this.email,
           password: this.password
         }).then((response) => {
-          console.log(response);
+          if(response.data.Result === "Success"){
+            this.$Swal.fire({
+              text: "Thank You for Registering with our service! ",
+              icon: "success"
+            });
+            this.$router.push({name: "login"})
+            this.clearFields();
+          } else if(response.data.Result === "Duplicate Email"){
+            this.$Swal.fire({
+              text: "This email is already taken in our system. Please Try Again.",
+              icon: "error"
+            })
+          } else if(response.data.Result === "Some Error Occurred"){
+            this.$Swal.fire({
+              text: "Some error occurred! Please Try Again.",
+              icon: "error"
+            })
+          }
         }).catch((e) => {
           console.log(e);
+        })
+      },
+      clearFields(){
+        this.firstName = "",
+        this.lastName = "",
+        this.email = "",
+        this.password = ""
+      },
+      getAllAppliances(){
+        this.$userHttp.post('get-all-appliances', {
+          rating: 4.0
+        }).then((resp) => {
+          console.log(resp.data);
+          this.appliances = resp.data.Data;
         })
       }
     }

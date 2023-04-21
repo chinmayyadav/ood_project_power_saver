@@ -20,4 +20,13 @@ public class UserController {
         jsObj.put("Result",result);
         return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/login",headers = "Accept=application/json", method = RequestMethod.POST)
+    public ResponseEntity<Object> login(@RequestBody UserDetails user) {
+        JSONObject jsObj = new JSONObject();
+        jsObj.put("Result",userService.Login(user));
+        return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
+    }
+
+
 }

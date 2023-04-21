@@ -4,6 +4,8 @@ package com.syracuse.PowerSaverHQ.services;
 import com.syracuse.PowerSaverHQ.models.UserDetails;
 import com.syracuse.PowerSaverHQ.utils.Constants;
 import com.syracuse.PowerSaverHQ.utils.databaseConnection;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -49,5 +51,32 @@ public class UserService extends databaseConnection {
             return Constants.STATUS_ERROR;
         }
 
+    }
+
+    public JSONArray Login(UserDetails user){
+        try{
+            System.out.println(user.getEmail() + "  " + user.getPassword());
+            String query = "Select * from UserDetails where Email = ? and Password = ?";
+            PreparedStatement pstmt = sql_connection.prepareStatement(query);
+            pstmt.setString(1, user.getEmail());
+            pstmt.setString(2, user.getPassword());
+            ResultSet rs = pstmt.executeQuery();
+            JSONArray jsonArray = new JSONArray();
+            while(rs.next()){
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("FirstName", rs.getString("FirstName"));
+                jsonObject.put("LastName", rs.getString("LastName"));
+                jsonObject.put("AccountNumber", rs.getString("AccountNumber"));
+                jsonObject.put("Email", rs.getString("Email"));
+                jsonArray.put(jsonObject);
+            }
+            return jsonArray;
+        } catch (Exception e) {
+            JSONArray jsonArray = new JSONArray();
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("Data", Constants.STATUS_ERROR);
+            jsonArray.put(jsonObject);
+            return jsonArray;
+        }
     }
 }

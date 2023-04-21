@@ -9,7 +9,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'login',
     component: HomePage
   },
   {
@@ -46,6 +46,20 @@ const routes = [
         path: 'add-bank-account',
         name: 'add-bank-account',
         component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/AddCreditCard.vue'),
+      },
+      {
+        // UserPosts will be rendered inside User's <router-view>
+        // when /user/:id/posts is matched
+        path: 'user-addresses',
+        name: 'UserAddresses',
+        component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/UserAddresses.vue'),
+      },
+      {
+        // UserPosts will be rendered inside User's <router-view>
+        // when /user/:id/posts is matched
+        path: 'add-addresses',
+        name: 'AddAddresses',
+        component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/AddAddress.vue'),
       },
     ],
 
