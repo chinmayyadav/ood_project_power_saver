@@ -47,6 +47,16 @@
       registerUser() {
         // Code to register user with the given details
         console.log(this.firstName, this.lastName, this.email, this.password);
+        this.$userHttp.post('/register-user', {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          password: this.password
+        }).then((response) => {
+          console.log(response);
+        }).catch((e) => {
+          console.log(e);
+        })
       }
     }
   };

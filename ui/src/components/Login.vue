@@ -78,6 +78,8 @@ export default {
       },
     ],
   }),
+  mounted() {
+  },
   methods: {
     loginSubmit(){
       this.$http.get('http://localhost:8080/test-two')

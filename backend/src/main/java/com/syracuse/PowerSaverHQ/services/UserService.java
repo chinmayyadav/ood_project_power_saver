@@ -2,6 +2,7 @@ package com.syracuse.PowerSaverHQ.services;
 
 
 import com.syracuse.PowerSaverHQ.models.UserDetails;
+import com.syracuse.PowerSaverHQ.utils.Constants;
 import com.syracuse.PowerSaverHQ.utils.databaseConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,7 +16,7 @@ import static com.syracuse.PowerSaverHQ.utils.generateAccountNumber.generateAcco
 
 @Service
 public class UserService extends databaseConnection {
-    public Boolean RegisterUser(UserDetails user) {
+    public String RegisterUser(UserDetails user) {
 
 
             try {
@@ -34,13 +35,18 @@ public class UserService extends databaseConnection {
             stmt.setString(4, Password);
             stmt.setString(5, AccountNumber);
             int row = stmt.executeUpdate();
-            return true;
+            return Constants.STATUS_SUCCESS;
         }
-
         catch (SQLException SE){
-                    System.out.println("SQL SERVER ERROR");
-                    System.out.println(SE.getMessage());
-                    return false;
+            System.out.println("SQL SERVER ERROR");
+            System.out.println(SE.getMessage());
+            System.out.println(SE.getErrorCode());
+            int errorCode = SE.getErrorCode();
+            if(errorCode == 1062){
+                return Constants.DUPLICATE_EMAIL;
+
+            }
+            return Constants.STATUS_ERROR;
         }
 
     }
