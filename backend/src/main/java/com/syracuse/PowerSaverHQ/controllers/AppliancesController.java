@@ -33,7 +33,7 @@ public class AppliancesController {
     @RequestMapping(value = "/get-appliances-per-user", headers = "Accept=application/json", method = RequestMethod.POST)
     public ResponseEntity<Object> getUserAppliance(@RequestBody UserDetails userDetails){
         JSONObject jsObj = new JSONObject();
-        jsObj.put("UserApplianceData",appliancesService.getUserApplianceData(userDetails));
+        jsObj.put("Data",appliancesService.getUserApplianceData(userDetails));
         return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
     }
 }
