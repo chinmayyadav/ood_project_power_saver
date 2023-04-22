@@ -18,11 +18,13 @@
               <p>Sign in with your username and password:</p>
               <v-form>
                 <v-text-field
+                  :rules="['Required']"
                   outline
                   label="Username"
                   type="text"
                   v-model="username"></v-text-field>
                 <v-text-field
+                  :rules="['Required']"
                   outline
                   hide-details
                   label="Password"
@@ -87,7 +89,6 @@ export default {
         password: this.password
       })
       .then(({data})=>{
-        console.log(data);
         if(data.Result.length > 0){
           this.$session.start();
           for(const obj in data.Result[0]){
@@ -96,10 +97,20 @@ export default {
           this.$router.push({
             name: "dashboard"
           })
+        } else {
+          this.$Swal.fire({
+            icon: 'error',
+            title: 'Some Error Occurred!',
+            text: 'It seems you entered wrong credentials. Please try again.'
+          })
         }
-        console.log("res", res);
       }).catch((err)=>{
         console.log("err", err);
+        this.$Swal.fire({
+            icon: 'error',
+            title: 'Some Error Occurred!',
+            text: 'Please try again.'
+          })
       })
       // this.$router.push({
       //   name:'dashboard'
