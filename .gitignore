@@ -34,4 +34,4 @@ dist
 .idea
 
 target/
-/backend/PowerSaverHQ.iml
+backend/PowerSaverHQ.iml
