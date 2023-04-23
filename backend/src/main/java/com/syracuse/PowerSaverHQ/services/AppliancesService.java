@@ -16,9 +16,9 @@ import org.json.JSONObject;
 public class AppliancesService extends databaseConnection {
     public JSONArray getApplianceData(ApplianceDetails applianceDetails){
         try{
-            String query = "SELECT * FROM HomeAppliances WHERE ApplianceRating = ?";
+            String query = "SELECT * FROM HomeAppliances WHERE ApplianceRating";
             PreparedStatement pstmt = sql_connection.prepareStatement(query);
-            pstmt.setFloat(1, applianceDetails.getRating());
+//            pstmt.setFloat(1, applianceDetails.getRating());
             ResultSet rs = pstmt.executeQuery();
             JSONArray jsonArray = new JSONArray();
             while(rs.next()){
@@ -32,7 +32,7 @@ public class AppliancesService extends databaseConnection {
 
             return jsonArray;
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.toString());
         }
 
         return null;
