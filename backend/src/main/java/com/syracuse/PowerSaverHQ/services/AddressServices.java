@@ -17,7 +17,7 @@ public class AddressServices extends databaseConnection{
 
     public JSONArray getAddressesUser(UserDetails userDetails) {
         try{
-            String query = "SELECT AddressLine1, AddressLine2, City, State, ZipCode, ApartmentNumber FROM UserAddress WHERE UserID = ?";
+            String query = "SELECT ID, AddressLine1, AddressLine2, City, State, ZipCode, ApartmentNumber FROM UserAddress WHERE UserID = ?";
             PreparedStatement pstmt = sql_connection.prepareStatement(query);
             pstmt.setFloat(1, userDetails.getUserID());
             ResultSet rs = pstmt.executeQuery();
@@ -30,6 +30,7 @@ public class AddressServices extends databaseConnection{
                 jsonObject.put("State", rs.getString("State"));
                 jsonObject.put("ZipCode", rs.getInt("ZipCode"));
                 jsonObject.put("ApartmentNumber", rs.getInt("ApartmentNumber"));
+                jsonObject.put("AddressID", rs.getInt("ID"));
 
                 jsonArray.put(jsonObject);
             }

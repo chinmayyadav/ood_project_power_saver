@@ -93,4 +93,36 @@ public class AppliancesService extends databaseConnection {
 
         return null;
     }
+
+    public JSONArray getAddressApplianceData(UserDetails userDetails) {
+        try{
+            String query = "SELECT A.AddressID, H.ApplianceName, A.AddressID, A.NoOfHours, A.NoOfDays FROM AddressApplianceMapping AS A\n" +
+                    "JOIN UserAddress ON A.AddressID = UserAddress.ID\n" +
+                    "JOIN HomeAppliances AS H ON H.ID = A.ApplianceID\n" +
+                    "WHERE UserAddress.ID = ?";
+            PreparedStatement pstmt = sql_connection.prepareStatement(query);
+            pstmt.setFloat(1, userDetails.getAddressID());
+            ResultSet rs = pstmt.executeQuery();
+            JSONArray jsonArray = new JSONArray();
+            int rowCount = rs.getFetchSize();
+            System.out.println("rowCount");
+            System.out.println(rowCount);
+            while(rs.next()){
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("AddressID", rs.getInt("AddressID"));
+                jsonObject.put("ApplianceName", rs.getString("ApplianceName"));
+                jsonObject.put("AddressID", rs.getInt("AddressID"));
+                jsonObject.put("NoOfHours", rs.getInt("NoOfHours"));
+                jsonObject.put("NoOfDays", rs.getInt("NoOfDays"));
+                jsonArray.put(jsonObject);
+            }
+            System.out.println("hwedjshkfcbsdkjcbsdkjcbsdcjbl");
+            return jsonArray;
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
+
+        return null;
+    }
 }

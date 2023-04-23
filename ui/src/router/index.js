@@ -61,6 +61,20 @@ const routes = [
         name: 'AddAddresses',
         component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/AddAddress.vue'),
       },
+      {
+        // UserPosts will be rendered inside User's <router-view>
+        // when /user/:id/posts is matched
+        path: 'view-appliances-per-address',
+        name: 'ViewAppliancesPerAddress',
+        component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/ViewAppliancesPerAddress.vue'),
+      },
+      {
+        // UserPosts will be rendered inside User's <router-view>
+        // when /user/:id/posts is matched
+        path: 'add-appliance',
+        name: 'AddAppliance',
+        component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/AddAppliance.vue'),
+      },
     ],
 
 

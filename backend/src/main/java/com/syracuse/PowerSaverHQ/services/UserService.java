@@ -68,6 +68,7 @@ public class UserService extends databaseConnection {
                 jsonObject.put("LastName", rs.getString("LastName"));
                 jsonObject.put("AccountNumber", rs.getString("AccountNumber"));
                 jsonObject.put("Email", rs.getString("Email"));
+                jsonObject.put("UserID", rs.getInt("ID"));
                 jsonArray.put(jsonObject);
             }
             return jsonArray;
