@@ -17,13 +17,11 @@ public class EmailService extends EmailConnections {
         try{
             Email from = new Email("powersaverhq@gmail.com");
             String subject = "Welcome to PowerSaverHQ";
-//            System.out.println(user.getEmail());
             Email to = new Email(user.getEmail());
             Content content = new Content("text/plain", "Hello "+user.getFirstName()+", \n\n" +
                     "Thank you for Registering. Welcome to Power Saver HQ");
             Mail mail = new Mail(from, subject, to, content);
             Request request = new Request();
-
             request.setMethod(Method.POST);
             request.setEndpoint("mail/send");
             request.setBody(mail.build());
