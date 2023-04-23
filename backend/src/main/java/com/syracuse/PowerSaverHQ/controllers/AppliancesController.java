@@ -43,4 +43,11 @@ public class AppliancesController {
         jsObj.put("Data",appliancesService.getAddressApplianceData(userDetails));
         return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
     }
+    @RequestMapping(value = "/delete-appliances-for-address", headers = "Accept=application/json", method = RequestMethod.POST)
+    public ResponseEntity<Object> deleteAppliance(@RequestBody ApplianceDetails applianceDetails){
+        JSONObject jsObj = new JSONObject();
+        jsObj.put("Data",appliancesService.deleteAppliance(applianceDetails));
+        return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
+    }
+
 }

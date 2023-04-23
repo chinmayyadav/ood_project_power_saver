@@ -15,11 +15,11 @@ import java.sql.ResultSet;
 @Service
 public class AddressServices extends databaseConnection{
 
-    public JSONArray getAddressesUser(UserDetails userDetails) {
+    public JSONArray getAddressesUser(AddressesDetails addressesDetails) {
         try{
-            String query = "SELECT ID, AddressLine1, AddressLine2, City, State, ZipCode, ApartmentNumber FROM UserAddress WHERE UserID = ?";
+            String query = "SELECT ID, AddressLine1, AddressLine2, City, State, ZipCode, ApartmentNumber FROM UserAddress WHERE UserID = ? AND isDeleted = 0";
             PreparedStatement pstmt = sql_connection.prepareStatement(query);
-            pstmt.setFloat(1, userDetails.getUserID());
+            pstmt.setFloat(1, addressesDetails.getUserID());
             ResultSet rs = pstmt.executeQuery();
             JSONArray jsonArray = new JSONArray();
             while(rs.next()){
@@ -72,11 +72,11 @@ public class AddressServices extends databaseConnection{
         }
     }
 
-    public JSONArray getAddressesID(UserDetails userDetails) {
+    public JSONArray getAddressesID(AddressesDetails addressesDetails) {
         try{
-            String query = "SELECT AddressLine1, AddressLine2, City, State, ZipCode, ApartmentNumber FROM UserAddress WHERE ID = ?";
+            String query = "SELECT AddressLine1, AddressLine2, City, State, ZipCode, ApartmentNumber FROM UserAddress WHERE ID = ?  AND isDeleted = 0";
             PreparedStatement pstmt = sql_connection.prepareStatement(query);
-            pstmt.setFloat(1, userDetails.getAddressID());
+            pstmt.setFloat(1, addressesDetails.getAddressID());
             ResultSet rs = pstmt.executeQuery();
             JSONArray jsonArray = new JSONArray();
             while(rs.next()){
@@ -96,5 +96,36 @@ public class AddressServices extends databaseConnection{
         }
 
         return null;
+    }
+
+    public String editAddress(AddressesDetails addressesDetails) {
+        try{
+            String query = "UPDATE UserAddress SET AddressLine1 = ?, AddressLine2 = ?, City = ?, State = ?, ZipCode = ? WHERE ID = ?";
+            PreparedStatement stmt = sql_connection.prepareStatement(query);
+            stmt.setString(1, addressesDetails.getAddressLine1());
+            stmt.setString(2, addressesDetails.getAddressLine2());
+            stmt.setString(3, addressesDetails.getCity());
+            stmt.setString(4, addressesDetails.getState());
+            stmt.setInt(5, addressesDetails.getZipcode());
+            stmt.setInt(6, addressesDetails.getAddressID());
+            stmt.executeUpdate();
+            return Constants.STATUS_SUCCESS;
+        }catch(Exception e){
+            System.out.println(e);
+            return Constants.STATUS_ERROR;
+        }
+    }
+
+    public String deleteAddress(AddressesDetails addressesDetails) {
+        try{
+            String query = "UPDATE UserAddress SET isDeleted = 1 WHERE ID = ?";
+            PreparedStatement stmt = sql_connection.prepareStatement(query);
+            stmt.setInt(1, addressesDetails.getAddressID());
+            stmt.executeUpdate();
+            return Constants.STATUS_SUCCESS;
+        }catch (Exception e){
+            System.out.println(e);
+            return Constants.STATUS_ERROR;
+        }
     }
 }

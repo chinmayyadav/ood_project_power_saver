@@ -1,6 +1,7 @@
 package com.syracuse.PowerSaverHQ.models;
 
 public class AddressesDetails {
+    private int addressID;
     private int userID;
     private String addressLine1;
     private String addressLine2;
@@ -73,5 +74,13 @@ public class AddressesDetails {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public int getAddressID() {
+        return addressID;
+    }
+
+    public void setAddressID(int addressID) {
+        this.addressID = addressID;
     }
 }
