@@ -41,6 +41,7 @@ public class AppliancesService extends databaseConnection {
     public String addAppliances(ApplianceDetails applianceDetails){
         try{
             int addID = applianceDetails.getAddID();
+            System.out.println(addID);
             int applianceID = applianceDetails.getApplianceID();
             int count = applianceDetails.getCount();
             int hours = applianceDetails.getHours();
@@ -67,7 +68,7 @@ public class AppliancesService extends databaseConnection {
 
     public JSONArray getUserApplianceData(UserDetails userDetails) {
         try{
-            String query = "SELECT A.AddressID, H.ApplianceName, A.AddressID, A.NoOfHours, A.NoOfDays FROM AddressApplianceMapping AS A\n" +
+            String query = "SELECT A.AddressID, H.ApplianceName, H.ApplianceRating, A.AddressID, A.NoOfHours, A.NoOfDays FROM AddressApplianceMapping AS A\n" +
                     "JOIN UserAddress ON A.AddressID = UserAddress.ID\n" +
                     "JOIN HomeAppliances AS H ON H.ID = A.ApplianceID\n" +
                     "WHERE UserAddress.UserID = ?";
@@ -82,8 +83,10 @@ public class AppliancesService extends databaseConnection {
                 jsonObject.put("AddressID", rs.getInt("AddressID"));
                 jsonObject.put("NoOfHours", rs.getInt("NoOfHours"));
                 jsonObject.put("NoOfDays", rs.getInt("NoOfDays"));
+                jsonObject.put("ApplianceRating", rs.getFloat("ApplianceRating"));
                 jsonArray.put(jsonObject);
             }
+            System.out.println("sdlkfijhdsfhdsbkjfbdskjb");
 
             return jsonArray;
         }catch (Exception e){
@@ -96,7 +99,7 @@ public class AppliancesService extends databaseConnection {
 
     public JSONArray getAddressApplianceData(UserDetails userDetails) {
         try{
-            String query = "SELECT A.AddressID, H.ApplianceName, A.AddressID, A.NoOfHours, A.NoOfDays FROM AddressApplianceMapping AS A\n" +
+            String query = "SELECT A.AddressID, H.ApplianceName, H.ApplianceRating, A.AddressID, A.NoOfHours, A.NoOfDays FROM AddressApplianceMapping AS A\n" +
                     "JOIN UserAddress ON A.AddressID = UserAddress.ID\n" +
                     "JOIN HomeAppliances AS H ON H.ID = A.ApplianceID\n" +
                     "WHERE UserAddress.ID = ?";
@@ -114,6 +117,7 @@ public class AppliancesService extends databaseConnection {
                 jsonObject.put("AddressID", rs.getInt("AddressID"));
                 jsonObject.put("NoOfHours", rs.getInt("NoOfHours"));
                 jsonObject.put("NoOfDays", rs.getInt("NoOfDays"));
+                jsonObject.put("ApplianceRating", rs.getFloat("ApplianceRating"));
                 jsonArray.put(jsonObject);
             }
             System.out.println("hwedjshkfcbsdkjcbsdkjcbsdcjbl");

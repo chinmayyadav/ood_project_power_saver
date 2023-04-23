@@ -19,6 +19,7 @@
             <thead>
               <tr>
                 <th>Name</th>
+                <th>Rating</th>
                 <th>No Of Days Used in a Month</th>
                 <th>No Of Hours Used in a Day</th>
               </tr>
@@ -26,6 +27,7 @@
             <tbody v-if="appliances.length > 0">
               <tr v-for="(appliance, index) in appliances" :key="index">
                 <td>{{ appliance.ApplianceName }}</td>
+                <td>{{ appliance.ApplianceRating }}</td>
                 <td>{{ appliance.NoOfDays }}</td>
                 <td>{{ appliance.NoOfHours }}</td>
                 <!-- <td>{{ appliance. }}</td>
@@ -56,8 +58,14 @@ export default {
         }
     },
     mounted(){
+        
         console.log(this.$route.params);
-        this.addressID = this.$route.params.addressID;
+        if(Object.keys(this.$route.params).length == 0){
+            this.addressID = this.$session.get('CurrentAddressID')
+        } else {
+
+            this.addressID = this.$route.params.addressID;
+        }
         this.getAppliancesforAddress();
     },
     methods: {
