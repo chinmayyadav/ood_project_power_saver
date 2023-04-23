@@ -84,3 +84,10 @@ CREATE TABLE BillPaymentpreference(
     FOREIGN KEY (BankAccTypeID) REFERENCES BankAccountTypes(ID)
 );
 
+
+ALTER TABLE UserAddress
+ADD COLUMN IsDeleted bit default 0;
+
+
+ALTER TABLE BillHistory
+ADD COLUMN IsPaid bit default 0;

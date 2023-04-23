@@ -1,10 +1,15 @@
 <template>
-    <div class="container">
+    <div class="container" style="align-items: start;">
       <div class="row justify-content-center mt-5">
         <div class="col-lg-8 col-md-10 col-sm-12">
           <div class="card">
             <div class="card-header bg-primary text-white">
-              <h4 class="card-title mb-0">Add Addresses</h4>
+              <h4 class="card-title mb-0">Add Addresses
+
+                <button class="btn btn-danger ml-auto" style="float: right;" @click="$router.push({name: 'UserAddresses'})">
+                  View All
+                </button>
+              </h4>
             </div>
             <div class="card-body">
               <form @submit.prevent="addAddresses">
@@ -28,7 +33,10 @@
                     <div class="col-md-3">
                       <div class="mb-3">
                         <label for="state" class="form-label">State:</label>
-                        <input type="text" class="form-control" id="state" v-model="address.state" required>
+                        <select class="form-control" v-model="address.state">
+                          <option value="">Select State</option>
+                          <option v-for="(state, id) in states" :key="id" :value="state.value" >{{ state.name }}</option>
+                        </select>
                       </div>
                     </div>
                     <div class="col-md-3">
@@ -38,10 +46,9 @@
                       </div>
                     </div>
                   </div>
-                  <hr>
                 </div>
-                <button type="button" class="btn btn-primary mb-3" @click="addAddress">Add Address</button>
-                <button type="submit" class="btn btn-success">Save Addresses</button>
+                <!-- <button type="button" class="btn btn-primary mb-3" @click="addAddress">Add Address</button> -->
+                <button type="submit" class="btn btn-success">Save Address</button>
               </form>
             </div>
           </div>
@@ -60,7 +67,48 @@
           city: "",
           state: "",
           zipcode: ""
-        }]
+        }],
+        states: [
+  { name: 'Alabama (AL)', value: 'Alabama (AL)' },
+  { name: 'Alaska (AK)', value: 'Alaska (AK)' },
+  { name: 'Arizona (AZ)', value: 'Arizona (AZ)' },
+  { name: 'Arkansas (AR)', value: 'Arkansas (AR)' },
+  { name: 'California (CA)', value: 'California (CA)' },
+  { name: 'Colorado (CO)', value: 'Colorado (CO)' },
+  { name: 'Connecticut (CT)', value: 'Connecticut (CT)' },
+  { name: 'Delaware (DE)', value: 'Delaware (DE)' },
+  { name: 'Florida (FL)', value: 'Florida (FL)' },
+  { name: 'Georgia (GA)', value: 'Georgia (GA)' },
+  { name: 'Hawaii (HI)', value: 'Hawaii (HI)' },
+  { name: 'Idaho (ID)', value: 'Idaho (ID)' },
+  { name: 'Illinois (IL)', value: 'Illinois (IL)' },
+  { name: 'Indiana (IN)', value: 'Indiana (IN)' },
+  { name: 'Iowa (IA)', value: 'Iowa (IA)' },
+  { name: 'Kansas (KS)', value: 'Kansas (KS)' },
+  { name: 'Kentucky (KY)', value: 'Kentucky (KY)' },
+  { name: 'Louisiana (LA)', value: 'Louisiana (LA)' },
+  { name: 'Maine (ME)', value: 'Maine (ME)' },
+  { name: 'Maryland (MD)', value: 'Maryland (MD)' },
+  { name: 'Massachusetts (MA)', value: 'Massachusetts (MA)' },
+  { name: 'Michigan (MI)', value: 'Michigan (MI)' },
+  { name: 'Minnesota (MN)', value: 'Minnesota (MN)' },
+  { name: 'Mississippi (MS)', value: 'Mississippi (MS)' },
+  { name: 'Missouri (MO)', value: 'Missouri (MO)' },
+  { name: 'Montana (MT)', value: 'Montana (MT)' },
+  { name: 'Nebraska (NE)', value: 'Nebraska (NE)' },
+  { name: 'Nevada (NV)', value: 'Nevada (NV)' },
+  { name: 'New Hampshire (NH)', value: 'New Hampshire (NH)' },
+  { name: 'New Jersey (NJ)', value: 'New Jersey (NJ)' },
+  { name: 'New Mexico (NM)', value: 'New Mexico (NM)' },
+  { name: 'New York (NY)', value: 'New York (NY)' },
+  { name: 'North Carolina (NC)', value: 'North Carolina (NC)' },
+  { name: 'North Dakota (ND)', value: 'North Dakota (ND)' },
+  { name: 'Ohio (OH)', value: 'Ohio (OH)' },
+  { name: 'Oklahoma (OK)', value: 'Oklahoma (OK)' },
+  { name: 'Oregon (OR)', value: 'Oregon (OR)' },
+  { name: 'Pennsylvania (PA)', value: 'Pennsylvania (PA)' },
+  { name: 'Rhode Island (RI)', value: 'Rhode Island (RI)' },
+  { name: 'South Carolina (SC)', value: 'South Carolina (SC)' },]
       };
     },
     methods: {
@@ -76,6 +124,49 @@
       addAddresses() {
         // Code to save the addresses
         console.log(this.addresses);
+        this.$Swal.fire({
+          title: "Are you sure?",
+          text: "You want to save this address?",
+          icon: "question",
+          showCancelButton: true
+        }).then((result) => {
+          if(result.value){
+            this.addresses[0].userID = this.$session.get('UserID'),
+            this.$userHttp.post('/save-address-for-user', 
+            this.addresses[0]
+            ).then((response) => {
+              if(response.data.Status == "Success"){
+                this.$Swal.fire({
+                  text: "Your address was saved! ",
+                  title: "Success",
+                  icon: "success"
+                });
+                this.clearFields();
+              } else {
+                this.$Swal.fire({
+                  text: "Some error occurred! Please Try Again.",
+                  icon: "error"
+                })
+              }
+              console.log(response.data);
+            }).catch((err) => {
+              console.log("err", err);
+                this.$Swal.fire({
+                  text: "Some error occurred! Please Try Again.",
+                  icon: "error"
+                })
+            })
+          }
+        })
+      },
+      clearFields(){
+        this.addresses = [{
+          addressLine1: "",
+          addressLine2: "",
+          city: "",
+          state: "",
+          zipcode: ""
+        }]
       }
     }
   };

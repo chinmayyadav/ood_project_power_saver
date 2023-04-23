@@ -1,6 +1,7 @@
 package com.syracuse.PowerSaverHQ.models;
 
 public class ApplianceDetails {
+    private int addressApplianceMappingID;
     private int addID;
     private int applianceID;
     private int count;
@@ -63,5 +64,13 @@ public class ApplianceDetails {
 
     public void setDays(int days) {
         this.days = days;
+    }
+
+    public int getAddressApplianceMappingID() {
+        return addressApplianceMappingID;
+    }
+
+    public void setAddressApplianceMappingID(int addressApplianceMappingID) {
+        this.addressApplianceMappingID = addressApplianceMappingID;
     }
 }

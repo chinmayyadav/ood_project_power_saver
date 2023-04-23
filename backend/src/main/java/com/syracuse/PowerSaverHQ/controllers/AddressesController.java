@@ -16,15 +16,15 @@ public class AddressesController {
     private AddressServices addressServices;
 
     @RequestMapping(value = "/get-addresses-per-user",headers = "Accept=application/json", method = RequestMethod.POST)
-    public ResponseEntity<Object> getAddressesUser(@RequestBody UserDetails userDetails) {
+    public ResponseEntity<Object> getAddressesUser(@RequestBody AddressesDetails addressesDetails) {
         JSONObject jsObj = new JSONObject();
-        jsObj.put("Data", addressServices.getAddressesUser(userDetails));
+        jsObj.put("Data", addressServices.getAddressesUser(addressesDetails));
         return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
     }
     @RequestMapping(value = "/get-addresses-by-id",headers = "Accept=application/json", method = RequestMethod.POST)
-    public ResponseEntity<Object> getAddressesID(@RequestBody UserDetails userDetails) {
+    public ResponseEntity<Object> getAddressesID(@RequestBody AddressesDetails addressesDetails) {
         JSONObject jsObj = new JSONObject();
-        jsObj.put("Data", addressServices.getAddressesID(userDetails));
+        jsObj.put("Data", addressServices.getAddressesID(addressesDetails));
         return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
     }
 
@@ -35,4 +35,16 @@ public class AddressesController {
         return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/edit-address-for-user",headers = "Accept=application/json", method = RequestMethod.POST)
+    public ResponseEntity<Object> editAddress(@RequestBody AddressesDetails addressesDetails) {
+        JSONObject jsObj = new JSONObject();
+        jsObj.put("Status", addressServices.editAddress(addressesDetails));
+        return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
+    }
+    @RequestMapping(value = "/delete-address-for-user",headers = "Accept=application/json", method = RequestMethod.POST)
+    public ResponseEntity<Object> deleteAddress(@RequestBody AddressesDetails addressesDetails) {
+        JSONObject jsObj = new JSONObject();
+        jsObj.put("Status", addressServices.deleteAddress(addressesDetails));
+        return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
+    }
 }
