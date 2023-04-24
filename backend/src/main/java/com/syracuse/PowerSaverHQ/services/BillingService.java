@@ -55,7 +55,7 @@ public class BillingService extends databaseConnection {
                 jsonArray.put(jsonObject);
             }
             return jsonArray;
-        }catch(Exception e){
+        } catch(Exception e){
             return null;
         }
     }
