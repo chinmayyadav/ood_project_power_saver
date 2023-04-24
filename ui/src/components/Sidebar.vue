@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex-shrink-0 p-3" style="width: 280px;">
+    <div class="flex-shrink-0 p-3" style="width: 250px;border-right: solid 1px; min-height: 90vh;">
     <a href="/" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
       <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
       <span class="fs-5 fw-semibold">Dashboard</span>
@@ -13,8 +13,8 @@
         <div class="collapse" id="home-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a @click="goToRoute('UserAddresses')" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Addresses</a></li>
-            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Appliances</a></li>
-            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Reports</a></li>
+            <!-- <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Appliances</a></li>
+            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Reports</a></li> -->
           </ul>
         </div>
       </li>
@@ -43,7 +43,7 @@
         </div>
       </li>
       <li class="border-top my-3"></li>
-      <li class="mb-1">
+      <!-- <li class="mb-1">
         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
           Account
         </button>
@@ -55,7 +55,7 @@
             <li><a href="javascript:void(0)" class="link-dark d-inline-flex text-decoration-none rounded">Sign out</a></li>
           </ul>
         </div>
-      </li>
+      </li> -->
     </ul>
   </div>
   </div>

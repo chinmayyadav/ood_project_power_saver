@@ -24,7 +24,7 @@
                   <label for="password" class="form-label">Password:</label>
                   <input type="password" class="form-control" id="password" v-model="password" required>
                 </div>
-                <div class="mb-3"></div>
+                <div class="mb-3" style="display: flex;">
                 <!-- <label for="password" class="form-label">  Select Appliacnce </label> -->
 
                 <!-- <select class="form-control" name="" id="">
@@ -32,9 +32,10 @@
                     {{ key.name }}
                   </option>
                 </select> -->
-                <button type="submit" class="btn btn-primary w-100">Register</button>
+                <button type="submit" class="btn btn-primary w-50">Register</button>
+                <button type="button" class="btn btn-primary w-25 ml-auto" @click="$router.push({name: 'login'})">Login</button>
+                </div>
               </form>
-                <button type="button" class="btn btn-primary w-100 mt-5" @click="$router.push({name: 'login'})">Login</button>
             </div>
           </div>
         </div>

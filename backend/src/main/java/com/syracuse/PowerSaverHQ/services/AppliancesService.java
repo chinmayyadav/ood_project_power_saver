@@ -89,7 +89,7 @@ public class AppliancesService extends databaseConnection {
 
             return jsonArray;
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.toString());
         }
 
 
@@ -98,7 +98,7 @@ public class AppliancesService extends databaseConnection {
 
     public JSONArray getAddressApplianceData(UserDetails userDetails) {
         try{
-            String query = "SELECT ID, A.AddressID, H.ApplianceName, H.ApplianceRating, A.AddressID, A.NoOfHours, A.NoOfDays FROM AddressApplianceMapping AS A\n" +
+            String query = "SELECT A.ID, A.AddressID, H.ApplianceName, H.ApplianceRating, A.AddressID, A.NoOfHours, A.NoOfDays FROM AddressApplianceMapping AS A\n" +
                     "JOIN UserAddress ON A.AddressID = UserAddress.ID\n" +
                     "JOIN HomeAppliances AS H ON H.ID = A.ApplianceID\n" +
                     "WHERE UserAddress.ID = ?";
@@ -111,7 +111,7 @@ public class AppliancesService extends databaseConnection {
             System.out.println(rowCount);
             while(rs.next()){
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("AddressApplianceMappingID", rs.getInt("AddressApplianceMappingID"));
+                jsonObject.put("AddressApplianceMappingID", rs.getInt("ID"));
                 jsonObject.put("AddressID", rs.getInt("AddressID"));
                 jsonObject.put("ApplianceName", rs.getString("ApplianceName"));
                 jsonObject.put("AddressID", rs.getInt("AddressID"));
@@ -122,7 +122,7 @@ public class AppliancesService extends databaseConnection {
             }
             return jsonArray;
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.toString());
         }
 
 
@@ -137,7 +137,7 @@ public class AppliancesService extends databaseConnection {
             stmt.executeUpdate();
             return Constants.STATUS_SUCCESS;
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.toString());
             return Constants.STATUS_ERROR;
         }
     }

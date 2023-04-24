@@ -19,6 +19,7 @@
                 <th>City</th>
                 <th>State</th>
                 <th>Zipcode</th>
+                <th style="text-align: center;">Actions</th>
               </tr>
             </thead>
             <tbody v-if="addresses.length > 0">
@@ -28,7 +29,13 @@
                 <td>{{ address.City }}</td>
                 <td>{{ address.State }}</td>
                 <td>{{ address.ZipCode }}</td>
-                <td><button class="btn btn-danger ml-auto" style="float: right;" @click="$router.push({name: 'ViewAppliancesPerAddress', params: {addressID: address.AddressID}})">View Appliances</button></td>
+                <td style="text-align: center;">
+                  <span style="cursor: pointer;" title="Delete Your Address" @click="deleteAddress(address)" class="mdi mdi-delete"></span>
+                  <span style="cursor: pointer;" title="Edit Your Address" class="mdi mdi-home-edit-outline"></span>
+                  <button class="btn btn-danger ml-auto" style="float: right;" @click="$router.push({name: 'ViewAppliancesPerAddress', params: {addressID: address.AddressID}})">
+                    View Appliances
+                  </button>
+                </td>
               </tr>
             </tbody>
             <tbody v-else>
@@ -68,12 +75,34 @@ export default {
       }).catch((e) => {
         console.log("err", e);
       })
+    },
+    deleteAddress(address){
+      this.$Swal.fire({
+        icon: 'question',
+        title: 'Are You Sure?',
+        text: 'This will delete this Address.',
+        showCancelButton: true
+      }).then((result) => {
+        if(result.value){
+          console.log(address);
+          // this.$userHttp.post('/delete-appliances-for-address', {
+
+          // })
+        }
+      })
     }
   }
 }
 </script>
   
   <style scoped>
+  .mdi-delete::before{
+    font-size: 25px;
+  }
+
+  .mdi-home-edit-outline::before{
+    font-size: 25px;
+  }
   /* .container {
     height: 100vh;
     display: flex;

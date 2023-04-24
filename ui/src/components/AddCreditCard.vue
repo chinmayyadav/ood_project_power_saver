@@ -232,6 +232,9 @@ computed: {
       }
     }
   },
+  mounted(){
+    
+  },
   methods: {
     flipCard (status) {
       this.isCardFlipped = status;
@@ -255,7 +258,9 @@ computed: {
       }, 300);
       vm.isInputFocused = false;
     }
-  }
+  },
+  
+
 
 }
 </script>

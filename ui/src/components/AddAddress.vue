@@ -14,7 +14,7 @@
             <div class="card-body">
               <form @submit.prevent="addAddresses">
                 <div v-for="(address, index) in addresses" :key="index" class="address mb-3">
-                  <h5 class="mb-3">Address {{ index + 1 }}</h5>
+                  <!-- <h5 class="mb-3">Address {{ index + 1 }}</h5> -->
                   <div class="mb-3">
                     <label for="address-line-1" class="form-label">Address Line 1:</label>
                     <input type="text" class="form-control" id="address-line-1" v-model="address.addressLine1" required>
