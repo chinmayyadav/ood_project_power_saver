@@ -1,5 +1,7 @@
 package com.syracuse.PowerSaverHQ.models;
 
+import net.datafaker.App;
+
 public class ApplianceDetails {
     private int addressApplianceMappingID;
     private int addID;
@@ -8,7 +10,7 @@ public class ApplianceDetails {
     private int hours;
     private int days;
     private float rating;
-
+    public ApplianceDetails(){}
     public ApplianceDetails(int addID, int applianceID, int count, int hours, int days, float rating){
         this.addID = addID;
         this.applianceID = applianceID;
@@ -16,6 +18,9 @@ public class ApplianceDetails {
         this.hours = hours;
         this.days = days;
         this.rating = rating;
+    }
+
+    public ApplianceDetails(int addID) {
     }
 
     public int getAddID() {
