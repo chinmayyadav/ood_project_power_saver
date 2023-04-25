@@ -21,7 +21,7 @@ public class InsightsController {
         JSONObject jsObj = new JSONObject();
         JSONArray currentUser = insightsModelService.currenUserData(insightsModel);
         JSONArray neighbours = insightsModelService.neighbourData(insightsModel);
-        if(currentUser!=null && neighbours!=null) {
+        if(!currentUser.isEmpty() && !neighbours.isEmpty()) {
             jsObj.put("Data", Constants.STATUS_SUCCESS);
             jsObj.put("CurrentUser", currentUser);
             jsObj.put("Neighbours", neighbours);
@@ -36,7 +36,7 @@ public class InsightsController {
     public ResponseEntity<Object> compareNeighbourAppliances(@RequestBody InsightsModel insightsModel) throws JSONException {
         JSONObject jsObj = new JSONObject();
         JSONArray data = insightsModelService.compareAppliances(insightsModel);
-        if(data!=null) {
+        if(!data.isEmpty()) {
             jsObj.put("Data", Constants.STATUS_SUCCESS);
             jsObj.put("Appliances", data);
         }else {

@@ -1,13 +1,12 @@
 package com.syracuse.PowerSaverHQ.services;
 
 import com.syracuse.PowerSaverHQ.models.BillingDetails;
-import com.syracuse.PowerSaverHQ.models.PaymentDetails;
+import com.syracuse.PowerSaverHQ.utils.Constants;
 import com.syracuse.PowerSaverHQ.utils.databaseConnection;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -86,5 +85,21 @@ public class BillingService extends databaseConnection {
         } catch(Exception e){
             return null;
         }
+
+    }
+
+    public String getpayBill(BillingDetails billingDetails) {
+        try {
+            String query = "UPDATE BillHistory SET isPaid = 1\n" +
+                    "WHERE ID = ?\n ";
+            PreparedStatement stmt = sql_connection.prepareStatement(query);
+            stmt.setInt(1, billingDetails.getBillID());
+            stmt.executeQuery();
+            return Constants.STATUS_SUCCESS;
+        }catch (Exception e){
+            return Constants.STATUS_ERROR;
+        }
+
+
     }
 }
