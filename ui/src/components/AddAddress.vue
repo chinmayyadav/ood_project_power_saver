@@ -123,7 +123,7 @@
       },
       addAddresses() {
         // Code to save the addresses
-        console.log(this.addresses);
+        // console.log(this.addresses);
         this.$Swal.fire({
           title: "Are you sure?",
           text: "You want to save this address?",

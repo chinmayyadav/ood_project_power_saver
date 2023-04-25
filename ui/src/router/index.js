@@ -89,6 +89,13 @@ const routes = [
         name: 'ViewCards',
         component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/ViewCards.vue'),
       },
+      {
+        // UserPosts will be rendered inside User's <router-view>
+        // when /user/:id/posts is matched
+        path: 'notification-preferences',
+        name: 'NotificationPreferences',
+        component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/NotificationPreferences.vue'),
+      },
     ],
 
 

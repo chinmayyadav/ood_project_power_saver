@@ -64,14 +64,14 @@ export default {
   methods: {
     getUserAddresses(){
       let userID = this.$session.get('UserID');
-      console.log(userID);
+      // console.log(userID);
       this.$userHttp.post('/get-addresses-per-user',{
         userID: userID
       }).then((response) => {
         if(response.data.Data.length > 0){
           this.addresses = response.data.Data;
         }
-        console.log(response);
+        // console.log(response);
       }).catch((e) => {
         console.log("err", e);
       })
