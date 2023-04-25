@@ -12,12 +12,12 @@
         <div class="row">
           <div class="col-sm-12 card">
               <h5>It seems you have <strong> <em> {{ unpaidBillCount }} </em> </strong> bill payments pending!!
-              <button style="float: right;" class="btn btn-warning ml-auto" @click="router.push({name:'UnpaidBills'})">Pay Now!!</button>
+              <button style="float: right;" class="btn btn-warning ml-auto" @click="$router.push({name:'UnpaidBills'})">Pay Now!!</button>
             </h5>
           </div>
           <div class="col-sm-12 mt-5 card">
               <h5>You have <strong> <em> {{ totalAddressesCount }} </em> </strong> addresses registered with us!
-              <button style="float: right;" class="btn btn-warning ml-auto" @click="router.push({name:'AddAddresses'})">Add More!!</button>
+              <button style="float: right;" class="btn btn-warning ml-auto" @click="$router.push({name:'AddAddresses'})">Add More!!</button>
             </h5>
           </div>
         </div>
@@ -25,7 +25,7 @@
           <div class="col-sm-12 card mt-5">
             <h5>
               We have some awesome Insights for You!!
-              <button style="float: right;" class="btn btn-warning ml-auto" @click="router.push({name:'Insights'})">Click here to check!!</button>
+              <button style="float: right;" class="btn btn-warning ml-auto" @click="$router.push({name:'Insights'})">Click here to check!!</button>
             </h5>
           </div>
         </div>

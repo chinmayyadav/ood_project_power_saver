@@ -108,6 +108,7 @@ public class InsightsModelService extends databaseConnection {
             ResultSet rs2 = stmt2.executeQuery();
             JSONArray jsonArray = new JSONArray();
             while(rs1.next() && rs2.next()){
+                System.out.println(1);
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("ApplianceName", rs1.getString("ApplianceName"));
                 jsonObject.put("ApplianceRating", rs1.getInt("ApplianceRating"));

@@ -30,6 +30,7 @@
         class="ma-2"
         color="red"
         @click="logOut()"
+        v-if="$session.has('UserID')"
       >
         Logout
         <v-icon icon="md:gavel"></v-icon>

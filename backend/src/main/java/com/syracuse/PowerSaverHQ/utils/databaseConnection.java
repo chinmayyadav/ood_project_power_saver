@@ -18,8 +18,6 @@ public class databaseConnection {
 
         }
         catch (ClassNotFoundException ignored){
-
-
         }
         catch (SQLException SE){
             System.out.println("SQL EXCEPTION");
