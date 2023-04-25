@@ -27,14 +27,14 @@
             <li><a href="javascript:void(0)" @click="goToRoute('ViewBills')" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
               View Bills
             </a></li>
-            <li><a href="javascript:void(0)" @click="goToRoute('ViewCards')" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+            <!-- <li><a href="javascript:void(0)" @click="goToRoute('ViewCards')" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
               Cards
             </a></li>
             <li>
               <a href="javascript:void(0)" @click="goToRoute('add-bank-account')" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
                 Bank Accounts
               </a>
-            </li>
+            </li> -->
            </ul>
         </div>
       </li>
@@ -44,8 +44,8 @@
         </button>
         <div class="collapse" id="orders-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="javascript:void(0)" @click="goToRoute('Insights')"  class="link-body-emphasis d-inline-flex text-decoration-none rounded">Insights</a></li>
-            <!-- <li><a href="javascript:void(0)" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Compare with Neighbours</a></li> -->
+            <li><a href="javascript:void(0)" @click="goToRoute('Insights')"  class="link-body-emphasis d-inline-flex text-decoration-none rounded">Energy Insights</a></li>
+            <li><a href="javascript:void(0)" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Appliance Insights</a></li>
           </ul>
         </div>
       </li>
