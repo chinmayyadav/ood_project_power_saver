@@ -63,13 +63,13 @@ public class BillingService extends databaseConnection {
         }
     }
 
-    public JSONArray getBill(int addID) {
+    public JSONArray getBill(int userID) {
         try{
             String query = "SELECT * from BillHistory\n" +
-                    "WHERE AddressID = ?\n" +
+                    "WHERE AddressID IN (select ID from UserAddress where UserID = ?) \n" +
                     "ORDER BY FromDate DESC;";
             PreparedStatement stmt = sql_connection.prepareStatement(query);
-            stmt.setInt(1, addID);
+            stmt.setInt(1, userID);
             ResultSet rs = stmt.executeQuery();
             JSONArray jsonArray = new JSONArray();
             while(rs.next()){
@@ -79,6 +79,7 @@ public class BillingService extends databaseConnection {
                 jsonObject.put("ToDate", rs.getString("ToDate"));
                 jsonObject.put("ElectricityAmount", rs.getFloat("ElectricityAmount"));
                 jsonObject.put("GasAmount", rs.getFloat("GasAmount"));
+                jsonObject.put("IsPaid", rs.getFloat("IsPaid"));
                 jsonArray.put(jsonObject);
             }
             return jsonArray;

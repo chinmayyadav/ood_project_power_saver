@@ -32,8 +32,8 @@ public class BillingController {
     @RequestMapping(value = "/get-all-bills",headers = "Accept=application/json", method = RequestMethod.POST)
     public ResponseEntity<Object> getAllBills(@RequestBody BillingDetails billingDetails) {
         JSONObject jsObj = new JSONObject();
-        int addressID = billingDetails.getAddID();
-        jsObj.put("Data", billingService.getBill(addressID));
+        int userID = billingDetails.getUserID();
+        jsObj.put("Data", billingService.getBill(userID));
         return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
     }
 //    @RequestMapping(value = "/pay-bill",headers = "Accept=application/json", method = RequestMethod.POST)
