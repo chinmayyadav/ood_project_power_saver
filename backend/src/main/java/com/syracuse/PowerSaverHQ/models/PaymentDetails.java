@@ -17,6 +17,7 @@ public class PaymentDetails extends hashingFunction {
     private String bankAccUserName;
     private String bankAccRoutingNo;
     private int cardDisplayNumber;
+    private boolean isCard;
 
     public void PaymentDetails(int bankAccTypeID, int userID, int paymentMethodPreferred, String cardNumber, String cardExpiry, String cardCVV, String bankAccNo, String bankAccUserName, String bankAccRoutingNo, int cardDisplayNumber ){
         this.bankAccTypeID = bankAccTypeID;
@@ -109,5 +110,13 @@ public class PaymentDetails extends hashingFunction {
 
     public void setCardDisplayNumber(int cardDisplayNumber) {
         this.cardDisplayNumber = cardDisplayNumber;
+    }
+
+    public boolean isCard() {
+        return isCard;
+    }
+
+    public void setCard(boolean card) {
+        isCard = card;
     }
 }

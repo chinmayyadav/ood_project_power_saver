@@ -60,4 +60,9 @@ public class NotificationControllerTest {
                 .jsonPath("$.Status").isEqualTo("Success");
         System.out.println("Test Case Passed Successfully");
     }
+
+    @RepeatedTest(50)
+    public void getNotificationPreferenceTest(){
+        
+    }
 }
