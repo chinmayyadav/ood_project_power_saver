@@ -25,8 +25,8 @@ public class AppliancesService extends databaseConnection {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("id", rs.getInt("ID"));
                 jsonObject.put("name", rs.getString("ApplianceName"));
-                jsonObject.put("rating", rs.getDouble("ApplianceRating"));
-                jsonObject.put("consumption", rs.getDouble("ApplianceConsumption"));
+                jsonObject.put("rating", rs.getFloat("ApplianceRating"));
+                jsonObject.put("consumption", rs.getFloat("ApplianceConsumption"));
                 jsonArray.put(jsonObject);
             }
 
@@ -41,7 +41,6 @@ public class AppliancesService extends databaseConnection {
     public String addAppliances(ApplianceDetails applianceDetails){
         try{
             int addID = applianceDetails.getAddID();
-            System.out.println(addID);
             int applianceID = applianceDetails.getApplianceID();
             int count = applianceDetails.getCount();
             int hours = applianceDetails.getHours();
@@ -107,8 +106,8 @@ public class AppliancesService extends databaseConnection {
             ResultSet rs = stmt.executeQuery();
             JSONArray jsonArray = new JSONArray();
             int rowCount = rs.getFetchSize();
-            System.out.println("rowCount");
-            System.out.println(rowCount);
+//            System.out.println("rowCount");
+//            System.out.println(rowCount);
             while(rs.next()){
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("AddressApplianceMappingID", rs.getInt("ID"));

@@ -21,8 +21,8 @@ public class BillingService extends databaseConnection {
             PreparedStatement stmt = sql_connection.prepareStatement(query);
 
             stmt.setInt(1, billingDetails.getAddID());
-            stmt.setString(2, billingDetails.getFromDate());
-            stmt.setString(3, billingDetails.getToDate());
+            stmt.setDate(2, billingDetails.getFromDate());
+            stmt.setDate(3, billingDetails.getToDate());
             ResultSet rs = stmt.executeQuery();
             JSONArray jsonArray = new JSONArray();
             while(rs.next()){
@@ -55,7 +55,7 @@ public class BillingService extends databaseConnection {
                 jsonArray.put(jsonObject);
             }
             return jsonArray;
-        }catch(Exception e){
+        } catch(Exception e){
             return null;
         }
     }
