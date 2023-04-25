@@ -8,6 +8,7 @@ import net.datafaker.Faker;
 import org.hamcrest.Matchers;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,10 +36,9 @@ public class AppliancesControllerTest {
         this.webClient = WebTestClient.bindToServer().baseUrl("http://localhost:"+8080).build();
     }
 
-    @Test
+    @RepeatedTest(50)
     public void AddHomeApplianceTest(){
         String expression = getExpressionForAddHomeApplianceTest();
-        System.out.println(expression);
         webClient.post()
                 .uri("/add-home-appliance")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -52,13 +52,13 @@ public class AppliancesControllerTest {
 
     }
 
-    @Test
+    @RepeatedTest(50)
     public void getApplianceTest(){
         ApplianceDetails expression = new ApplianceDetails();
         JSONArray array = appliancesService.getApplianceData(expression);
         JSONObject jsObj = new JSONObject();
         String expected = jsObj.put("Data",array).toMap().toString();
-//        System.out.println(expected);
+        System.out.println("Expected: " + expected);
         webClient.post().uri("/get-all-appliances")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue("{}")
@@ -69,14 +69,14 @@ public class AppliancesControllerTest {
                     String actualJson = response.getResponseBody();
                     JSONObject actualJsonObject = new JSONObject(actualJson);
                     String actual = actualJsonObject.put("Data", actualJsonObject.getJSONArray("Data")).toMap().toString();
-//                    System.out.println("actual: " + actual);
+                    System.out.println("Actual: " + actual);
                     // Compare the expected and actual JSON arrays using JsonPath
                     assertThat(actual).isEqualTo(expected);
                 });
         System.out.println("Test Case Passed Successfully");
     }
 
-    @Test
+    @RepeatedTest(50)
     public void getUserApplianceTest(){
         int userID = random.nextInt(200)+1;
         String expression = String.format("{\"userID\": \"%d\"}", userID);
@@ -85,6 +85,7 @@ public class AppliancesControllerTest {
         JSONArray array = appliancesService.getUserApplianceData(internalExpression);
         JSONObject jsObj = new JSONObject();
         String expected = jsObj.put("Data",array).toMap().toString();
+        System.out.println(expected);
         webClient.post().uri("/get-appliances-per-user")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(expression)
@@ -95,14 +96,14 @@ public class AppliancesControllerTest {
                     String actualJson = response.getResponseBody();
                     JSONObject actualJsonObject = new JSONObject(actualJson);
                     String actual = actualJsonObject.put("Data", actualJsonObject.getJSONArray("Data")).toMap().toString();
-//                    System.out.println("actual: " + actual);
+                    System.out.println("Actual: " + actual);
                     // Compare the expected and actual JSON arrays using JsonPath
                     assertThat(actual).isEqualTo(expected);
                 });
         System.out.println("Test Case Passed Successfully");
     }
 
-    @Test
+    @RepeatedTest(50)
     public void getAddressApplianceTest(){
         int addID = random.nextInt(200)+1;
         String expression = String.format("{\"addressID\": \"%d\"}", addID);
@@ -122,7 +123,7 @@ public class AppliancesControllerTest {
                     String actualJson = response.getResponseBody();
                     JSONObject actualJsonObject = new JSONObject(actualJson);
                     String actual = actualJsonObject.put("Data", actualJsonObject.getJSONArray("Data")).toMap().toString();
-                    System.out.println("actual: " + actual);
+                    System.out.println("Actual: " + actual);
                     // Compare the expected and actual JSON arrays using JsonPath
                     assertThat(actual).isEqualTo(expected);
                 });

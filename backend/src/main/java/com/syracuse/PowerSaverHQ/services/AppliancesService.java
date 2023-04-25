@@ -106,8 +106,8 @@ public class AppliancesService extends databaseConnection {
             ResultSet rs = stmt.executeQuery();
             JSONArray jsonArray = new JSONArray();
             int rowCount = rs.getFetchSize();
-            System.out.println("rowCount");
-            System.out.println(rowCount);
+//            System.out.println("rowCount");
+//            System.out.println(rowCount);
             while(rs.next()){
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("AddressApplianceMappingID", rs.getInt("ID"));
