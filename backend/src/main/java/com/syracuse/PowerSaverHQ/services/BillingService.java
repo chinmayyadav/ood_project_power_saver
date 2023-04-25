@@ -37,17 +37,44 @@ public class BillingService extends databaseConnection {
         }
     }
 
-    public JSONArray getUnpaidBill(BillingDetails billingDetails) {
+    public JSONArray getBill(int addID, boolean isPaid) {
         try{
             String query = "SELECT * from BillHistory\n" +
-                    "WHERE AddressID = ? and isPaid = 0\n" +
+                    "WHERE AddressID = ? and isPaid = ?\n" +
                     "ORDER BY FromDate DESC;";
             PreparedStatement stmt = sql_connection.prepareStatement(query);
-            stmt.setInt(1, billingDetails.getAddID());
+            stmt.setInt(1, addID);
+            stmt.setBoolean(2, isPaid);
             ResultSet rs = stmt.executeQuery();
             JSONArray jsonArray = new JSONArray();
             while(rs.next()){
                 JSONObject jsonObject = new JSONObject();
+                jsonObject.put("ID", rs.getInt("ID"));
+                jsonObject.put("FromDate", rs.getString("FromDate"));
+                jsonObject.put("ToDate", rs.getString("ToDate"));
+                jsonObject.put("ElectricityAmount", rs.getFloat("ElectricityAmount"));
+                jsonObject.put("GasAmount", rs.getFloat("GasAmount"));
+                jsonArray.put(jsonObject);
+            }
+            System.out.println(jsonArray);
+            return jsonArray;
+        } catch(Exception e){
+            return null;
+        }
+    }
+
+    public JSONArray getBill(int addID) {
+        try{
+            String query = "SELECT * from BillHistory\n" +
+                    "WHERE AddressID = ?\n" +
+                    "ORDER BY FromDate DESC;";
+            PreparedStatement stmt = sql_connection.prepareStatement(query);
+            stmt.setInt(1, addID);
+            ResultSet rs = stmt.executeQuery();
+            JSONArray jsonArray = new JSONArray();
+            while(rs.next()){
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("ID", rs.getInt("ID"));
                 jsonObject.put("FromDate", rs.getString("FromDate"));
                 jsonObject.put("ToDate", rs.getString("ToDate"));
                 jsonObject.put("ElectricityAmount", rs.getFloat("ElectricityAmount"));
