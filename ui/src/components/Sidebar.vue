@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex-shrink-0 p-3" style="width: 250px;border-right: solid 1px; min-height: 90vh;">
-    <a href="/" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+    <a  @click="goToRoute('dashboard-home')" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
       <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
       <span class="fs-5 fw-semibold">Dashboard</span>
     </a>
@@ -44,10 +44,8 @@
         </button>
         <div class="collapse" id="orders-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="javascript:void(0)" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Appliances</a></li>
-            <li><a href="javascript:void(0)" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Compare with Neighbours</a></li>
-            <!-- <li><a href="javascript:void(0)" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Shipped</a></li>
-            <li><a href="javascript:void(0)" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Returned</a></li> -->
+            <li><a href="javascript:void(0)" @click="goToRoute('Insights')"  class="link-body-emphasis d-inline-flex text-decoration-none rounded">Insights</a></li>
+            <!-- <li><a href="javascript:void(0)" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Compare with Neighbours</a></li> -->
           </ul>
         </div>
       </li>

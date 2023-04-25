@@ -25,6 +25,7 @@
           src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
           width="100"
         /> -->
+        
         <v-btn
         class="ma-2"
         color="red"
@@ -52,6 +53,12 @@ export default {
   data: () => ({
     //
   }),
+  computed: {
+    // currentTime(){
+    //   return new Date().toJSON().slice(0,10).replace(/-/g,'/')
+      
+    // }
+  },  
   methods: {
     logOut() {
       this.$session.destroy();

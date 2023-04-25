@@ -17,10 +17,15 @@ const userMicroserviceInstance = axios.create({
   baseURL: 'http://localhost:8080/'
 });
 
+const insightsMicroserviceInstance = axios.create({
+  baseURL: 'http://localhost:8082/'
+});
+
 // const swal = new Swal();
  
 
 Vue.prototype.$userHttp = userMicroserviceInstance
+Vue.prototype.$insightsHttp = insightsMicroserviceInstance
 Vue.prototype.$Swal = Swal;
 Vue.config.productionTip = false;
 Vue.use(VueSession)

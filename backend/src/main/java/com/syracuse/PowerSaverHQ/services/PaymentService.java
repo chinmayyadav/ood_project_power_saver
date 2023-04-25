@@ -15,12 +15,15 @@ import java.sql.ResultSet;
 public class PaymentService extends databaseConnection {
     public String savePreference(PaymentDetails paymentDetails) {
         try{
-            Date date = Date.valueOf(paymentDetails.getCardExpiry());
+            System.out.println("savePreference ");
+
             String check = "Select * from BillPaymentPreferences where UserID = ?";
             PreparedStatement checkstmt = sql_connection.prepareStatement(check);
             checkstmt.setInt(1, paymentDetails.getUserID());
             ResultSet rs = checkstmt.executeQuery();
             int rowCount  = rs.getFetchSize();
+            System.out.println("rowCount " );
+            Date date = Date.valueOf(paymentDetails.getCardExpiry());
             if(rowCount>0){
                 if(paymentDetails.isCard()){
                     String update = "UPDATE BillPaymentPreferences SET CardNumber, CardExpiry, CardCVV, CardDisplayNumber, PaymentMethodPreferred VALUES(?,?,?,?,?) Where UserId = ?";
@@ -63,7 +66,8 @@ public class PaymentService extends databaseConnection {
                 return Constants.STATUS_SUCCESS;
             }
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
+            System.out.println(e.toString());
             return Constants.STATUS_ERROR;
         }
     }

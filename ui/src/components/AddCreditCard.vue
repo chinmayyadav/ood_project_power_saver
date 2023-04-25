@@ -164,7 +164,7 @@
           </div>
         </div>
 
-        <button class="card-form__button">
+        <button class="card-form__button" @click="saveCardDetails()">
           Submit
         </button>
       </div>
@@ -266,14 +266,19 @@ computed: {
         showCancelButton: true
       }).then((result) => {
         if(result.value){
+          let date = `${this.cardYear}/${this.cardMonth}/22`;
+          console.log(date);
+          date = new Date(date).toISOString();
+          console.log(date);
 					this.$userHttp.post('/save-payment-details', {
-            cardID: card.ID,
-            cardName: card.ID,
-            cardNumber: card.ID,
-            cardMonth: card.ID,
-            cardID: card.ID,
-            cardID: card.ID,
+            userID: this.$session.get('UserID'),
+            cardName: this.cardName,
+            cardNumber: this.cardNumber,
+            cardExpiry: date,
+            cardCVV: this.cardCvv,
+            isCard: true,
           }).then((response) => {
+            console.log(response.data);
             if(response.data.Status === "Success"){
                 this.$Swal.fire({
                   text: "Your card was deleted! ",
