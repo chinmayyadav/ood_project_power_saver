@@ -23,7 +23,7 @@ public class UserController {
         JSONObject jsObj = new JSONObject();
         String result = userService.RegisterUser(user);
         jsObj.put("Result",result);
-        if(result == "Success"){
+        if(result.contains("Success") ){
             emailService.sendRegistrationEmail(user);
         }
         return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
