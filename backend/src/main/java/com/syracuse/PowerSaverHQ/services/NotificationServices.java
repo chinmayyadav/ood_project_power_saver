@@ -32,14 +32,14 @@ public class NotificationServices extends databaseConnection {
         try{
             String query = "SELECT * FROM NotificationPreferences AS N\n" +
                     "JOIN UserAddress AS U ON N.AddressID = U.ID\n" +
-                    "WHERE U.UserID = ?";
+                    "WHERE U.UserID = ? order by N.ID DESC limit 1";
             PreparedStatement stmt = sql_connection.prepareStatement(query);
             stmt.setInt(1, userDetails.getUserID());
             ResultSet rs = stmt.executeQuery();
             JSONArray jsonArray = new JSONArray();
             while(rs.next()){
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("AddressID", rs.getInt("AddressID"));
+                jsonObject.put("addressID", rs.getInt("AddressID"));
                 jsonObject.put("EmailNotification", rs.getBoolean("EmailNotification"));
                 jsonObject.put("PhoneNotification", rs.getBoolean("PhoneNotification"));
                 jsonObject.put("ServicePhoneCalls", rs.getBoolean("ServicePhoneCalls"));

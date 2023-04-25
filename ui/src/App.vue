@@ -5,7 +5,8 @@
       color="primary"
       dark
     >
-      <div class="d-flex align-center">
+      <div class="d-flex align-center" style="width: 100%;
+    justify-content: space-between;">
        <h2> Power Saver HQ</h2>
         <!-- <v-img
           alt="Vuetify Logo"
@@ -24,6 +25,15 @@
           src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
           width="100"
         /> -->
+        <v-btn
+        class="ma-2"
+        color="red"
+        @click="logOut()"
+      >
+        Logout
+        <v-icon icon="md:gavel"></v-icon>
+      </v-btn>
+
       </div>
       <v-spacer></v-spacer>
     </v-app-bar>
@@ -42,6 +52,12 @@ export default {
   data: () => ({
     //
   }),
+  methods: {
+    logOut() {
+      this.$session.destroy();
+      this.$router.push('/')
+    }
+  }
 };
 </script>
 

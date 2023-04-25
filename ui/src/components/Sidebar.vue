@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex-shrink-0 p-3" style="width: 280px;">
+    <div class="flex-shrink-0 p-3" style="width: 250px;border-right: solid 1px; min-height: 90vh;">
     <a href="/" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
       <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
       <span class="fs-5 fw-semibold">Dashboard</span>
@@ -13,8 +13,8 @@
         <div class="collapse" id="home-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a @click="goToRoute('UserAddresses')" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Addresses</a></li>
-            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Appliances</a></li>
-            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Reports</a></li>
+            <!-- <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Appliances</a></li>
+            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Reports</a></li> -->
           </ul>
         </div>
       </li>
@@ -24,8 +24,17 @@
         </button>
         <div class="collapse" id="dashboard-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="javascript:void(0)" @click="goToRoute('add-credit-card')" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add Credit Card</a></li>
-            <li><a href="javascript:void(0)" @click="goToRoute('add-bank-account')" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add Bank Account</a></li>
+            <li><a href="javascript:void(0)" @click="goToRoute('ViewCards')" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+              View Bills
+            </a></li>
+            <li><a href="javascript:void(0)" @click="goToRoute('ViewCards')" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+              Cards
+            </a></li>
+            <li>
+              <a href="javascript:void(0)" @click="goToRoute('add-bank-account')" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+                Bank Accounts
+              </a>
+            </li>
            </ul>
         </div>
       </li>
@@ -49,7 +58,7 @@
         </button>
         <div class="collapse" id="account-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="javascript:void(0)" class="link-dark d-inline-flex text-decoration-none rounded">New...</a></li>
+            <li><a href="javascript:void(0)" @click="goToRoute('NotificationPreferences')" class="link-dark d-inline-flex text-decoration-none rounded">Notification Preferences</a></li>
             <li><a href="javascript:void(0)" class="link-dark d-inline-flex text-decoration-none rounded">Profile</a></li>
             <li><a href="javascript:void(0)" class="link-dark d-inline-flex text-decoration-none rounded">Settings</a></li>
             <li><a href="javascript:void(0)" class="link-dark d-inline-flex text-decoration-none rounded">Sign out</a></li>

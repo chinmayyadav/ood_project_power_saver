@@ -232,6 +232,9 @@ computed: {
       }
     }
   },
+  mounted(){
+  //  this.getPaymentDetails(); 
+  },
   methods: {
     flipCard (status) {
       this.isCardFlipped = status;
@@ -254,8 +257,52 @@ computed: {
         }
       }, 300);
       vm.isInputFocused = false;
+    },
+    saveCardDetails(){
+      this.$Swal.fire({
+        icon: 'question',
+        title: 'Are You Sure?',
+        text: 'This will add this card to your account. \n You can always delete it later.',
+        showCancelButton: true
+      }).then((result) => {
+        if(result.value){
+					this.$userHttp.post('/delete-card', {
+            cardID: card.ID
+          }).then((response) => {
+            if(response.data.Status === "Success"){
+                this.$Swal.fire({
+                  text: "Your card was deleted! ",
+                  title: "Success",
+                  icon: "success",
+                })
+                this.getUserAddresses();
+              } else {
+                this.$Swal.fire({
+                  text: "Some error occurred! Please Try Again.",
+                  icon: "error"
+                })
+              }
+            console.log(response.data);
+          }).catch((err) => {
+            console.log("err", err);
+            this.$Swal.fire({
+              text: "Some error occurred! Please Try Again.",
+              icon: "error"
+            })
+          })
+				}
+			})
     }
-  }
+    // getPaymentDetails(){
+    //   this.$userHttp.post('get-payment-details', {
+    //     userID: this.$session.get('UserID')
+    //   }).then((response) => {
+    //     console.log(response.data);
+    //   })
+    // }
+  },
+  
+
 
 }
 </script>

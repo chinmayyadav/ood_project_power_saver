@@ -88,7 +88,7 @@ public class AppliancesService extends databaseConnection {
 
             return jsonArray;
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.toString());
         }
 
 
@@ -106,8 +106,8 @@ public class AppliancesService extends databaseConnection {
             ResultSet rs = stmt.executeQuery();
             JSONArray jsonArray = new JSONArray();
             int rowCount = rs.getFetchSize();
-            System.out.println("rowCount");
-            System.out.println(rowCount);
+//            System.out.println("rowCount");
+//            System.out.println(rowCount);
             while(rs.next()){
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("AddressApplianceMappingID", rs.getInt("ID"));
@@ -121,7 +121,7 @@ public class AppliancesService extends databaseConnection {
             }
             return jsonArray;
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.toString());
         }
 
 
@@ -136,7 +136,7 @@ public class AppliancesService extends databaseConnection {
             stmt.executeUpdate();
             return Constants.STATUS_SUCCESS;
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.toString());
             return Constants.STATUS_ERROR;
         }
     }

@@ -91,3 +91,7 @@ ADD COLUMN IsDeleted bit default 0;
 
 ALTER TABLE BillHistory
 ADD COLUMN IsPaid bit default 0;
+
+
+alter table BillPaymentPreferences
+add column CardDisplayNumber int default 1023

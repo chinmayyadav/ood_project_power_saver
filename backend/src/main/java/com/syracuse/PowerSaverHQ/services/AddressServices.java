@@ -81,12 +81,12 @@ public class AddressServices extends databaseConnection{
             JSONArray jsonArray = new JSONArray();
             while(rs.next()){
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("AddressLine1", rs.getString("AddressLine1"));
-                jsonObject.put("AddressLine2", rs.getString("AddressLine2"));
-                jsonObject.put("City", rs.getString("City"));
-                jsonObject.put("State", rs.getString("State"));
-                jsonObject.put("ZipCode", rs.getInt("ZipCode"));
-                jsonObject.put("ApartmentNumber", rs.getInt("ApartmentNumber"));
+                jsonObject.put("addressLine1", rs.getString("AddressLine1"));
+                jsonObject.put("addressLine2", rs.getString("AddressLine2"));
+                jsonObject.put("city", rs.getString("City"));
+                jsonObject.put("state", rs.getString("State"));
+                jsonObject.put("zipcode", rs.getInt("ZipCode"));
+                jsonObject.put("apartmentNumber", rs.getInt("ApartmentNumber"));
                 jsonArray.put(jsonObject);
             }
 
@@ -108,8 +108,13 @@ public class AddressServices extends databaseConnection{
             stmt.setString(4, addressesDetails.getState());
             stmt.setInt(5, addressesDetails.getZipcode());
             stmt.setInt(6, addressesDetails.getAddressID());
-            stmt.executeUpdate();
-            return Constants.STATUS_SUCCESS;
+            int rows = stmt.executeUpdate();
+            System.out.println("rows "+ rows);
+            if (rows > 0){
+                return Constants.STATUS_SUCCESS;
+            } else {
+                return Constants.STATUS_FAILURE;
+            }
         }catch(Exception e){
             System.out.println(e);
             return Constants.STATUS_ERROR;
@@ -128,4 +133,6 @@ public class AddressServices extends databaseConnection{
             return Constants.STATUS_ERROR;
         }
     }
+
+
 }

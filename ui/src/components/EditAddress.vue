@@ -1,19 +1,19 @@
 <template>
-    <div class="container" style="align-items: start;">
+  <div class="container" style="align-items: start;">
       <div class="row justify-content-center mt-5">
         <div class="col-lg-8 col-md-10 col-sm-12">
           <div class="card">
             <div class="card-header bg-primary text-white">
-              <h4 class="card-title mb-0">Add Addresses
+              <h4 class="card-title mb-0">Edit Address
 
                 <button class="btn btn-danger ml-auto" style="float: right;" @click="$router.push({name: 'UserAddresses'})">
-                  View All
+                  Go Back
                 </button>
               </h4>
             </div>
             <div class="card-body">
-              <form @submit.prevent="addAddresses">
-                <div v-for="(address, index) in addresses" :key="index" class="address mb-3">
+              <form @submit.prevent="editAddress">
+                <!-- <div v-for="(address, index) in addresses" :key="index" class="address mb-3"> -->
                   <!-- <h5 class="mb-3">Address {{ index + 1 }}</h5> -->
                   <div class="mb-3">
                     <label for="address-line-1" class="form-label">Address Line 1:</label>
@@ -35,7 +35,7 @@
                         <label for="state" class="form-label">State:</label>
                         <select class="form-control" v-model="address.state">
                           <option value="">Select State</option>
-                          <option v-for="(state, id) in states" :key="id" :value="state.value" >{{ state.name }}</option>
+                          <option v-for="(state, id) in states" :key="id" :value="state.state" >{{ state.state }}</option>
                         </select>
                       </div>
                     </div>
@@ -46,29 +46,32 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                <!-- </div> -->
                 <!-- <button type="button" class="btn btn-primary mb-3" @click="addAddress">Add Address</button> -->
-                <button type="submit" class="btn btn-success">Save Address</button>
+                <button type="submit" class="btn btn-success">Edit Address</button>
               </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        addresses: [{
-          addressLine1: "",
-          addressLine2: "",
-          city: "",
-          state: "",
-          zipcode: ""
-        }],
-        states: [
+</template>
+
+<script>
+export default {
+    name: "EditAddress",
+    data(){
+        return {
+            addressID: null,
+            address: {
+                addressID: null,
+                addressLine1: null,
+                addressLine2: null,
+                city: null,
+                state: null,
+                zipcode: null
+            }, 
+            states: [
   { name: 'Alabama (AL)', value: 'Alabama (AL)' },
   { name: 'Alaska (AK)', value: 'Alaska (AK)' },
   { name: 'Arizona (AZ)', value: 'Arizona (AZ)' },
@@ -108,130 +111,71 @@
   { name: 'Oregon (OR)', value: 'Oregon (OR)' },
   { name: 'Pennsylvania (PA)', value: 'Pennsylvania (PA)' },
   { name: 'Rhode Island (RI)', value: 'Rhode Island (RI)' },
-  { name: 'South Carolina (SC)', value: 'South Carolina (SC)' },]
-      };
+              { name: 'South Carolina (SC)', value: 'South Carolina (SC)' },
+            ]
+        }
+    },
+    mounted() {
+      console.log(this.$route.params.addressID);
+        this.addressID = this.$route.params.addressID;
+        this.address["addressID"] = this.$route.params.addressID;
+        this.getAddressDetails();
+        
     },
     methods: {
-      addAddress() {
-        this.addresses.push({
-          addressLine1: "",
-          addressLine2: "",
-          city: "",
-          state: "",
-          zipcode: ""
-        });
-      },
-      addAddresses() {
-        // Code to save the addresses
-        // console.log(this.addresses);
-        this.$Swal.fire({
+        getAddressDetails(){
+            this.$userHttp.post(
+                '/get-addresses-by-id', 
+                {
+                    addressID: this.addressID
+                }
+            ).then((response) => {
+                console.log(response.data);
+                if (response.data.Data.length > 0){
+                  this.address = response.data.Data[0];
+                  this.address["addressID"] = this.addressID;
+                }
+            })
+        },
+        editAddress() {
+          console.log(this.address);
+          this.$Swal.fire({
           title: "Are you sure?",
           text: "You want to save this address?",
           icon: "question",
           showCancelButton: true
         }).then((result) => {
-          if(result.value){
-            this.addresses[0].userID = this.$session.get('UserID'),
-            this.$userHttp.post('/save-address-for-user', 
-            this.addresses[0]
-            ).then((response) => {
-              if(response.data.Status == "Success"){
-                this.$Swal.fire({
-                  text: "Your address was saved! ",
-                  title: "Success",
-                  icon: "success"
-                });
-                this.clearFields();
-              } else {
-                this.$Swal.fire({
-                  text: "Some error occurred! Please Try Again.",
-                  icon: "error"
-                })
-              }
-              console.log(response.data);
-            }).catch((err) => {
-              console.log("err", err);
-                this.$Swal.fire({
-                  text: "Some error occurred! Please Try Again.",
-                  icon: "error"
-                })
-            })
-          }
-        })
-      },
-      clearFields(){
-        this.addresses = [{
-          addressLine1: "",
-          addressLine2: "",
-          city: "",
-          state: "",
-          zipcode: ""
-        }]
-      }
+            if(result.value){
+              this.$userHttp.post('/edit-address-for-user', this.address)
+              .then((response) => {
+                  console.log(response.data);
+                  if(response.data.Status === "Success"){
+                    this.$Swal.fire({
+                      text: "Your address was saved! ",
+                      title: "Success",
+                      icon: "success",
+                      timer: 5000,
+                      allowOutsideClick: false
+                    }).then((result) =>{
+                      this.$router.go(-1);
+                    });
+                    // this.clearFields();
+                  } else {
+                    this.$Swal.fire({
+                      text: "Some error occurred! Please Try Again.",
+                      icon: "error"
+                    })
+                  }
+              }).catch((err) => {
+                  console.log("err", err);
+              })
+            }
+          })
+        } 
     }
-  };
-  </script>
-  
-  <style scoped>
-.container {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
+</script>
 
-.card {
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
+<style>
 
-.card-header {
-  border-radius: 10px 10px 0 0;
-}
-
-.card-body {
-  padding: 30px;
-}
-
-.address {
-  border: 1px solid #ccc;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
-}
-
-.btn-primary:hover {
-  background-color: #0069d9;
-  border-color: #0062cc;
-}
-
-.btn-success {
-  background-color: #28a745;
-  border-color: #28a745;
-}
-
-.btn-success:hover {
-  background-color: #218838;
-  border-color: #1e7e34;
-}
-
-.form-label {
-  font-weight: 600;
-}
-
-.form-control:focus {
-  box-shadow: none;
-}
-
-@media screen and (max-width: 576px) {
-  .card {
-    width: 100%;
-    border-radius: 0;
-    box-shadow: none;
-  }
-}
 </style>

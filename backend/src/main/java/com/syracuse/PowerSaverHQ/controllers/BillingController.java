@@ -24,14 +24,23 @@ public class BillingController {
     @RequestMapping(value = "/get-unpaid-bill",headers = "Accept=application/json", method = RequestMethod.POST)
     public ResponseEntity<Object> getUnpaidBill(@RequestBody BillingDetails billingDetails) {
         JSONObject jsObj = new JSONObject();
-        jsObj.put("Data", billingService.getUnpaidBill(billingDetails));
+        int addressID = billingDetails.getAddID();
+        boolean isPaid = billingDetails.isPaid();
+        jsObj.put("Data", billingService.getBill(addressID,isPaid));
         return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
     }
-//    @RequestMapping(value = "/pay-bill",headers = "Accept=application/json", method = RequestMethod.POST)
-//    public ResponseEntity<Object> payBill(@RequestBody BillingDetails billingDetails) {
-//        JSONObject jsObj = new JSONObject();
-//        jsObj.put("Data", billingService.getUnpaidBill(billingDetails));
-//        return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
-//    }
+    @RequestMapping(value = "/get-all-bills",headers = "Accept=application/json", method = RequestMethod.POST)
+    public ResponseEntity<Object> getAllBills(@RequestBody BillingDetails billingDetails) {
+        JSONObject jsObj = new JSONObject();
+        int addressID = billingDetails.getAddID();
+        jsObj.put("Data", billingService.getBill(addressID));
+        return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
+    }
+    @RequestMapping(value = "/pay-bill",headers = "Accept=application/json", method = RequestMethod.POST)
+    public ResponseEntity<Object> getBillID(@RequestBody BillingDetails billingDetails) {
+        JSONObject jsObj = new JSONObject();
+        jsObj.put("Status", billingService.getpayBill(billingDetails));
+        return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
+    }
 
 }

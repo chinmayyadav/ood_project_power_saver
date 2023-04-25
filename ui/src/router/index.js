@@ -75,6 +75,27 @@ const routes = [
         name: 'AddAppliance',
         component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/AddAppliance.vue'),
       },
+      {
+        // UserPosts will be rendered inside User's <router-view>
+        // when /user/:id/posts is matched
+        path: 'edit-address',
+        name: 'EditAddress',
+        component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/EditAddress.vue'),
+      },
+      {
+        // UserPosts will be rendered inside User's <router-view>
+        // when /user/:id/posts is matched
+        path: 'view-cards',
+        name: 'ViewCards',
+        component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/ViewCards.vue'),
+      },
+      {
+        // UserPosts will be rendered inside User's <router-view>
+        // when /user/:id/posts is matched
+        path: 'notification-preferences',
+        name: 'NotificationPreferences',
+        component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/NotificationPreferences.vue'),
+      },
     ],
 
 
