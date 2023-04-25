@@ -266,8 +266,13 @@ computed: {
         showCancelButton: true
       }).then((result) => {
         if(result.value){
-					this.$userHttp.post('/delete-card', {
-            cardID: card.ID
+					this.$userHttp.post('/save-payment-details', {
+            cardID: card.ID,
+            cardName: card.ID,
+            cardNumber: card.ID,
+            cardMonth: card.ID,
+            cardID: card.ID,
+            cardID: card.ID,
           }).then((response) => {
             if(response.data.Status === "Success"){
                 this.$Swal.fire({
