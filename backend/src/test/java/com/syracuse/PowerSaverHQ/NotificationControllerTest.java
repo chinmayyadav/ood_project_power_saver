@@ -1,8 +1,10 @@
 package com.syracuse.PowerSaverHQ;
 
 import com.syracuse.PowerSaverHQ.models.NotificationPreferance;
+import com.syracuse.PowerSaverHQ.models.UserDetails;
 import com.syracuse.PowerSaverHQ.services.NotificationServices;
 import net.datafaker.Faker;
+import org.apache.catalina.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.RepeatedTest;
@@ -63,6 +65,29 @@ public class NotificationControllerTest {
 
     @RepeatedTest(50)
     public void getNotificationPreferenceTest(){
-        
+        int userID = random.nextInt(250)+1;
+        String expression = String.format("{\"userID\": \"%d\"}", userID);
+        UserDetails user = new UserDetails();
+        user.setUserID(userID);
+        JSONArray array = notificationServices.getPreference(user);
+        JSONObject jobj = new JSONObject();
+        String expected = jobj.put("Data",array).toMap().toString();
+        System.out.println(expression);
+        System.out.println("Expected: " + expected);
+        webClient.post().uri("/get-notification-preference")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(expression)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(String.class)
+                .consumeWith(response -> {
+                    String actualJson = response.getResponseBody();
+                    JSONObject actualJsonObject = new JSONObject(actualJson);
+                    String actual = actualJsonObject.put("Data", actualJsonObject.getJSONArray("Data")).toMap().toString();
+                    System.out.println("Actual: " + actual);
+                    // Compare the expected and actual JSON arrays using JsonPath
+                    assertThat(actual).isEqualTo(expected);
+                });
+        System.out.println("Test Case Passed Successfully");
     }
 }
