@@ -24,8 +24,17 @@
         </button>
         <div class="collapse" id="dashboard-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="javascript:void(0)" @click="goToRoute('add-credit-card')" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add Credit Card</a></li>
-            <li><a href="javascript:void(0)" @click="goToRoute('add-bank-account')" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add Bank Account</a></li>
+            <li><a href="javascript:void(0)" @click="goToRoute('ViewCards')" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+              View Bills
+            </a></li>
+            <li><a href="javascript:void(0)" @click="goToRoute('ViewCards')" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+              Cards
+            </a></li>
+            <li>
+              <a href="javascript:void(0)" @click="goToRoute('add-bank-account')" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+                Bank Accounts
+              </a>
+            </li>
            </ul>
         </div>
       </li>

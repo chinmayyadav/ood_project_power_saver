@@ -38,7 +38,7 @@ public class PaymentService extends databaseConnection {
 
     public JSONArray getCardNumber(PaymentDetails paymentDetails) {
         try {
-            String query = "Select CardDisplayNumber from BillPaymentPreferences where UserID = ?";
+            String query = "Select ID, CardDisplayNumber from BillPaymentPreferences where UserID = ?";
             PreparedStatement stmt = sql_connection.prepareStatement(query);
             stmt.setInt(1, paymentDetails.getUserID());
             ResultSet rs = stmt.executeQuery();
@@ -46,6 +46,7 @@ public class PaymentService extends databaseConnection {
             while(rs.next()){
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("CardDisplayNumber", rs.getString("CardDisplayNumber"));
+                jsonObject.put("ID", rs.getString("ID"));
                 jsonArray.put(jsonObject);
             }
             return jsonArray;
