@@ -1,23 +1,25 @@
 package com.syracuse.PowerSaverHQ.models;
 
+import java.sql.Date;
+
 public class BillingDetails {
-    private String fromDate;
-    private String toDate;
+    private Date fromDate;
+    private Date toDate;
     private int addID;
 
-    public String getFromDate() {
+    public Date getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(String fromDate) {
+    public void setFromDate(Date fromDate) {
         this.fromDate = fromDate;
     }
 
-    public String getToDate() {
+    public Date getToDate() {
         return toDate;
     }
 
-    public void setToDate(String toDate) {
+    public void setToDate(Date toDate) {
         this.toDate = toDate;
     }
 
