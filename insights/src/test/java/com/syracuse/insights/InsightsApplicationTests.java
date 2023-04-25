@@ -46,7 +46,7 @@ class InsightsApplicationTests {
 		if(!currentUser.isEmpty() && !neighbours.isEmpty()) {
 			jsObj.put("Data", Constants.STATUS_SUCCESS).toMap();
 			jsObj.put("CurrentUser", currentUser).toMap();
-			jsObj.put("Neighbours"x, neighbours).toMap();
+			jsObj.put("Neighbours", neighbours).toMap();
 		}else {
 			jsObj.put("Data", Constants.STATUS_ERROR).toMap().toString();
 		}

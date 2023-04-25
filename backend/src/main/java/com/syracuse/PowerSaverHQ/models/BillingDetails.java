@@ -7,10 +7,9 @@ public class BillingDetails {
     private Date toDate;
     private int addID;
     private boolean isPaid;
+    private int billID;
 
     public Date getFromDate() {
-    private int billID;
-    public String getFromDate() {
         return fromDate;
     }
 

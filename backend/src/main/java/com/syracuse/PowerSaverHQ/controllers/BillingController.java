@@ -39,7 +39,7 @@ public class BillingController {
     @RequestMapping(value = "/pay-bill",headers = "Accept=application/json", method = RequestMethod.POST)
     public ResponseEntity<Object> getBillID(@RequestBody BillingDetails billingDetails) {
         JSONObject jsObj = new JSONObject();
-        jsObj.put("Status", billingService.getUnpaidBill(billingDetails));
+        jsObj.put("Status", billingService.getpayBill(billingDetails));
         return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
     }
 
