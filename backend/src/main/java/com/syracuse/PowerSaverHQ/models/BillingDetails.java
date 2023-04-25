@@ -6,6 +6,7 @@ public class BillingDetails {
     private Date fromDate;
     private Date toDate;
     private int addID;
+    private boolean isPaid;
 
     public Date getFromDate() {
         return fromDate;
@@ -29,5 +30,13 @@ public class BillingDetails {
 
     public void setAddID(int addID) {
         this.addID = addID;
+    }
+
+    public boolean isPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(boolean paid) {
+        isPaid = paid;
     }
 }

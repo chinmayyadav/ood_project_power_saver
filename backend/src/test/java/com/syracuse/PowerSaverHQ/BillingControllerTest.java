@@ -33,6 +33,7 @@ public class BillingControllerTest {
     private int addID;
     private Date fromDate;
     private Date toDate;
+    private boolean isPaid;
 
     @Autowired
     BillingService billingService;
@@ -57,6 +58,57 @@ public class BillingControllerTest {
         System.out.println(expression);
         System.out.println("Expected: " + expected);
         webClient.post().uri("/get-bill")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(expression)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(String.class)
+                .consumeWith(response -> {
+                    String actualJson = response.getResponseBody();
+                    JSONObject actualJsonObject = new JSONObject(actualJson);
+                    String actual = actualJsonObject.put("Data", actualJsonObject.getJSONArray("Data")).toMap().toString();
+                    System.out.println("Actual: " + actual);
+                    // Compare the expected and actual JSON arrays using JsonPath
+                    assertThat(actual).isEqualTo(expected);
+                });
+        System.out.println("Test Case Passed Successfully");
+    }
+    @RepeatedTest(50)
+    public void getUnpaidOrPaidBillTest(){
+        addID = random.nextInt(250)+1;
+        isPaid = random.nextBoolean();
+        String expression = String.format("{\"addID\": \"%d\",\"isPaid\":\"%b\"}", addID,isPaid);
+        JSONArray array = billingService.getBill(addID);
+        JSONObject jobj = new JSONObject();
+        String expected = jobj.put("Data",array).toMap().toString();
+        System.out.println(expression);
+        System.out.println("Expected: " + expected);
+        webClient.post().uri("/get-all-bills")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(expression)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(String.class)
+                .consumeWith(response -> {
+                    String actualJson = response.getResponseBody();
+                    JSONObject actualJsonObject = new JSONObject(actualJson);
+                    String actual = actualJsonObject.put("Data", actualJsonObject.getJSONArray("Data")).toMap().toString();
+                    System.out.println("Actual: " + actual);
+                    // Compare the expected and actual JSON arrays using JsonPath
+                    assertThat(actual).isEqualTo(expected);
+                });
+        System.out.println("Test Case Passed Successfully");
+    }
+    @RepeatedTest(50)
+    public void getAllBillsTest(){
+        addID = random.nextInt(250)+1;
+        String expression = String.format("{\"addID\": \"%d\"}", addID);
+        JSONArray array = billingService.getBill(addID);
+        JSONObject jobj = new JSONObject();
+        String expected = jobj.put("Data",array).toMap().toString();
+        System.out.println(expression);
+        System.out.println("Expected: " + expected);
+        webClient.post().uri("/get-all-bills")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(expression)
                 .exchange()
