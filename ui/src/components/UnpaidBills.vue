@@ -1,12 +1,12 @@
 <template>
-   <div class="container">
-      <div class="card">
+  <div class="container">
+      <!-- <div class="card">
         <div class="card-header bg-primary text-white">
           <h4>Your Previous Bills
           </h4>
          
         </div>
-        <div class="card-body">
+        <div class="card-body"> -->
           
           <table class="table table-striped">
             <thead>
@@ -45,16 +45,15 @@
               </tr>
             </tbody>
           </table>
-        </div>
-      </div>
+        <!-- </div>
+      </div> -->
     </div>
 </template>
 
 <script>
 import moment from 'moment';
-
 export default {
-    name: "ViewBills",
+    name: "UnpaidBills",
     data(){
         return {
             userID: this.$session.get('UserID'),
@@ -62,7 +61,7 @@ export default {
         }
     },
     mounted(){
-        this.getAllBills();
+        this.getUnpaidBills();
     },
     methods: {
         getAddresses(){
@@ -78,9 +77,9 @@ export default {
                 console.log("err", e);
             })
         },
-        getAllBills(){
+        getUnpaidBills(){
             let now = moment().format('LLLL');
-            this.$userHttp.post('/get-all-bills', {
+            this.$userHttp.post('/get-unpaid-bill', {
                 userID: this.userID
             }).then((response) => {
                 if(response.data?.Data?.length>0){

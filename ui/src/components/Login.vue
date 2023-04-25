@@ -95,7 +95,7 @@ export default {
             this.$session.set(obj, data.Result[0][obj])
           }
           this.$router.push({
-            name: "dashboard"
+            name: "dashboard-home "
           })
         } else {
           this.$Swal.fire({

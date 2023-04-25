@@ -24,9 +24,9 @@ public class BillingController {
     @RequestMapping(value = "/get-unpaid-bill",headers = "Accept=application/json", method = RequestMethod.POST)
     public ResponseEntity<Object> getUnpaidBill(@RequestBody BillingDetails billingDetails) {
         JSONObject jsObj = new JSONObject();
-        int addressID = billingDetails.getAddID();
+        int userID = billingDetails.getUserID();
         boolean isPaid = billingDetails.isPaid();
-        jsObj.put("Data", billingService.getBill(addressID,isPaid));
+        jsObj.put("Data", billingService.getBill(userID,isPaid));
         return new ResponseEntity<>(jsObj.toMap(), HttpStatus.OK);
     }
     @RequestMapping(value = "/get-all-bills",headers = "Accept=application/json", method = RequestMethod.POST)

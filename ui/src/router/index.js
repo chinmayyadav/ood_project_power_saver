@@ -34,94 +34,79 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../layouts/DashboardLayout.vue'),
     children: [
       {
-        // UserProfile will be rendered inside User's <router-view>
-        // when /user/:id/profile is matched
+        path: '/home',
+        name: 'dashboard-home',
+        component: () => import(/* webpackChunkName: "dashboard-home" */ '../components/Dashboard.vue'),
+      },
+      {
         path: 'add-credit-card',
         name: 'add-credit-card',
         component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/AddCreditCard.vue'),
       },
       {
-        // UserPosts will be rendered inside User's <router-view>
-        // when /user/:id/posts is matched
         path: 'add-bank-account',
         name: 'add-bank-account',
         component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/AddCreditCard.vue'),
       },
       {
-        // UserPosts will be rendered inside User's <router-view>
-        // when /user/:id/posts is matched
         path: 'user-addresses',
         name: 'UserAddresses',
         component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/UserAddresses.vue'),
       },
       {
-        // UserPosts will be rendered inside User's <router-view>
-        // when /user/:id/posts is matched
         path: 'add-addresses',
         name: 'AddAddresses',
         component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/AddAddress.vue'),
       },
       {
-        // UserPosts will be rendered inside User's <router-view>
-        // when /user/:id/posts is matched
         path: 'view-appliances-per-address',
         name: 'ViewAppliancesPerAddress',
         component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/ViewAppliancesPerAddress.vue'),
       },
       {
-        // UserPosts will be rendered inside User's <router-view>
-        // when /user/:id/posts is matched
         path: 'add-appliance',
         name: 'AddAppliance',
         component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/AddAppliance.vue'),
       },
       {
-        // UserPosts will be rendered inside User's <router-view>
-        // when /user/:id/posts is matched
         path: 'edit-address',
         name: 'EditAddress',
         component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/EditAddress.vue'),
       },
       {
-        // UserPosts will be rendered inside User's <router-view>
-        // when /user/:id/posts is matched
         path: 'view-cards',
         name: 'ViewCards',
         component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/ViewCards.vue'),
       },
       {
-        // UserPosts will be rendered inside User's <router-view>
-        // when /user/:id/posts is matched
         path: 'notification-preferences',
         name: 'NotificationPreferences',
         component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/NotificationPreferences.vue'),
       },
       {
-        // UserPosts will be rendered inside User's <router-view>
-        // when /user/:id/posts is matched
         path: 'profile',
         name: 'Profile',
         component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/Profile.vue'),
       },
       {
-        // UserPosts will be rendered inside User's <router-view>
-        // when /user/:id/posts is matched
         path: 'view-bills',
         name: 'ViewBills',
         component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/ViewBills.vue'),
+      },
+      {
+        path: 'unpaid-bills',
+        name: 'UnpaidBills',
+        component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/UnpaidBills.vue'),
+      },
+      {
+        path: 'insights',
+        name: 'Insights',
+        component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/Insights.vue'),
       },
     ],
 
 
   },
-  // {
-  //   path: '/login',
-  //   name: 'login',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "Login" */ '../componenets/Login.vue')
-  // }
 ]
 
 const router = new VueRouter({

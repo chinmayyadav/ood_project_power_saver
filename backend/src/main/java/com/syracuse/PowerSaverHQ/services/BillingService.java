@@ -36,13 +36,13 @@ public class BillingService extends databaseConnection {
         }
     }
 
-    public JSONArray getBill(int addID, boolean isPaid) {
+    public JSONArray getBill(int userID, boolean isPaid) {
         try{
             String query = "SELECT * from BillHistory\n" +
-                    "WHERE AddressID = ? and isPaid = ?\n" +
+                    "WHERE AddressID in (select ID from UserAddress where UserID = ?) and isPaid = ?\n" +
                     "ORDER BY FromDate DESC;";
             PreparedStatement stmt = sql_connection.prepareStatement(query);
-            stmt.setInt(1, addID);
+            stmt.setInt(1, userID);
             stmt.setBoolean(2, isPaid);
             ResultSet rs = stmt.executeQuery();
             JSONArray jsonArray = new JSONArray();
@@ -90,13 +90,15 @@ public class BillingService extends databaseConnection {
 
     public String getpayBill(BillingDetails billingDetails) {
         try {
+            System.out.println("get");
             String query = "UPDATE BillHistory SET isPaid = 1\n" +
                     "WHERE ID = ?\n ";
             PreparedStatement stmt = sql_connection.prepareStatement(query);
             stmt.setInt(1, billingDetails.getBillID());
-            stmt.executeQuery();
+            stmt.executeUpdate();
             return Constants.STATUS_SUCCESS;
         }catch (Exception e){
+            System.out.println(e);
             return Constants.STATUS_ERROR;
         }
 

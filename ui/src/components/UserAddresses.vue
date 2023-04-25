@@ -70,6 +70,7 @@ export default {
       }).then((response) => {
         if(response.data.Data.length > 0){
           this.addresses = response.data.Data;
+          
         }
       }).catch((e) => {
         console.log("err", e);
