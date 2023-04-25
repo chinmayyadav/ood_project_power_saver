@@ -1,10 +1,8 @@
 package com.syracuse.PowerSaverHQ;
 
-import com.syracuse.PowerSaverHQ.models.NotificationPreferance;
+import com.syracuse.PowerSaverHQ.models.PaymentDetails;
 import com.syracuse.PowerSaverHQ.models.UserDetails;
-import com.syracuse.PowerSaverHQ.services.NotificationServices;
-import net.datafaker.Faker;
-import org.apache.catalina.User;
+import com.syracuse.PowerSaverHQ.services.PaymentService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.RepeatedTest;
@@ -22,59 +20,31 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringJUnitConfig
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class NotificationControllerTest {
-    private int addID;
-    private boolean email, phone, service;
+public class PaymentControllerTest {
     static Random random = new Random();
+    private int userID;
 
     @Autowired
-    NotificationServices notificationServices;
+    PaymentService paymentService;
 
     private WebTestClient webClient;
 
-    public NotificationControllerTest(){
+    public PaymentControllerTest(){
         this.webClient = WebTestClient.bindToServer().baseUrl("http://localhost:"+8080).build();
     }
 
-    @RepeatedTest(5)
-    public void saveNotificationPreferenceTest(){
-        addID = random.nextInt(250)+1;
-        email = random.nextBoolean();
-        phone = random.nextBoolean();
-        service = random.nextBoolean();
-        String expression = String.format("{\"addressID\": \"%d\",\"emailNotification\":\"%b\",\"phoneNotification\":\"%b\",\"servicePhoneCalls\":\"%b\"}", addID,email,phone,service);
-        NotificationPreferance notificationPreferance = new NotificationPreferance();
-        notificationPreferance.setAddressID(addID);
-        notificationPreferance.setEmailNotification(email);
-        notificationPreferance.setPhoneNotification(phone);
-        notificationPreferance.setServicePhoneCalls(service);
-        JSONObject jsObj = new JSONObject();
-        String expected = jsObj.put("Status", notificationServices.savePreference(notificationPreferance)).toMap().toString();
-        System.out.println(expression);
-        System.out.println("Expected: " + expected);
-        webClient.post()
-                .uri("/save-notification-preference")
-                .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(expression)
-                .exchange()
-                .expectStatus().isOk()
-                .expectBody()
-                .jsonPath("$.Status").isEqualTo("Success");
-        System.out.println("Test Case Passed Successfully");
-    }
-
     @RepeatedTest(50)
-    public void getNotificationPreferenceTest(){
+    public void getPaymentTest(){
         int userID = random.nextInt(250)+1;
         String expression = String.format("{\"userID\": \"%d\"}", userID);
-        UserDetails user = new UserDetails();
-        user.setUserID(userID);
-        JSONArray array = notificationServices.getPreference(user);
+        PaymentDetails paymentDetails = new PaymentDetails();
+        paymentDetails.setUserID(userID);
+        JSONArray array = paymentService.getCardNumber(paymentDetails);
         JSONObject jobj = new JSONObject();
         String expected = jobj.put("Data",array).toMap().toString();
         System.out.println(expression);
         System.out.println("Expected: " + expected);
-        webClient.post().uri("/get-notification-preference")
+        webClient.post().uri("/get-payment-details")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(expression)
                 .exchange()
@@ -90,4 +60,6 @@ public class NotificationControllerTest {
                 });
         System.out.println("Test Case Passed Successfully");
     }
+
+
 }

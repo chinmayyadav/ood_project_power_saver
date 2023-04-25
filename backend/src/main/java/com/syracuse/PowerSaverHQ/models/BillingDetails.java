@@ -7,6 +7,7 @@ public class BillingDetails {
     private Date toDate;
     private int addID;
     private boolean isPaid;
+    private int billID;
 
     public Date getFromDate() {
         return fromDate;
@@ -38,5 +39,13 @@ public class BillingDetails {
 
     public void setPaid(boolean paid) {
         isPaid = paid;
+    }
+
+    public int getBillID() {
+        return billID;
+    }
+
+    public void setBillID(int billID) {
+        this.billID = billID;
     }
 }
