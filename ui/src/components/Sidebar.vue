@@ -24,7 +24,7 @@
         </button>
         <div class="collapse" id="dashboard-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="javascript:void(0)" @click="goToRoute('ViewCards')" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+            <li><a href="javascript:void(0)" @click="goToRoute('ViewBills')" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
               View Bills
             </a></li>
             <li><a href="javascript:void(0)" @click="goToRoute('ViewCards')" class="link-body-emphasis d-inline-flex text-decoration-none rounded">
@@ -46,8 +46,8 @@
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a href="javascript:void(0)" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Appliances</a></li>
             <li><a href="javascript:void(0)" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Compare with Neighbours</a></li>
-            <li><a href="javascript:void(0)" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Shipped</a></li>
-            <li><a href="javascript:void(0)" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Returned</a></li>
+            <!-- <li><a href="javascript:void(0)" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Shipped</a></li>
+            <li><a href="javascript:void(0)" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Returned</a></li> -->
           </ul>
         </div>
       </li>
@@ -59,9 +59,9 @@
         <div class="collapse" id="account-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a href="javascript:void(0)" @click="goToRoute('NotificationPreferences')" class="link-dark d-inline-flex text-decoration-none rounded">Notification Preferences</a></li>
-            <li><a href="javascript:void(0)" class="link-dark d-inline-flex text-decoration-none rounded">Profile</a></li>
-            <li><a href="javascript:void(0)" class="link-dark d-inline-flex text-decoration-none rounded">Settings</a></li>
-            <li><a href="javascript:void(0)" class="link-dark d-inline-flex text-decoration-none rounded">Sign out</a></li>
+            <li><a href="javascript:void(0)" @click="goToRoute('Profile')" class="link-dark d-inline-flex text-decoration-none rounded">Profile</a></li>
+            <!-- <li><a href="javascript:void(0)" class="link-dark d-inline-flex text-decoration-none rounded">Settings</a></li>
+            <li><a href="javascript:void(0)" class="link-dark d-inline-flex text-decoration-none rounded">Sign out</a></li> -->
           </ul>
         </div>
       </li>

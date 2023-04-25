@@ -96,6 +96,20 @@ const routes = [
         name: 'NotificationPreferences',
         component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/NotificationPreferences.vue'),
       },
+      {
+        // UserPosts will be rendered inside User's <router-view>
+        // when /user/:id/posts is matched
+        path: 'profile',
+        name: 'Profile',
+        component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/Profile.vue'),
+      },
+      {
+        // UserPosts will be rendered inside User's <router-view>
+        // when /user/:id/posts is matched
+        path: 'view-bills',
+        name: 'ViewBills',
+        component: () => import(/* webpackChunkName: "add-credit-card" */ '../components/ViewBills.vue'),
+      },
     ],
 
 

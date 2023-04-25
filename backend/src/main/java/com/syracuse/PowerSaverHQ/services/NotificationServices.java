@@ -21,7 +21,9 @@ public class NotificationServices extends databaseConnection {
             pstmt.setBoolean(2, notificationPreferance.isEmailNotification());
             pstmt.setBoolean(3, notificationPreferance.isPhoneNotification());
             pstmt.setBoolean(4, notificationPreferance.isServicePhoneCalls());
-            pstmt.executeUpdate();
+            int row = pstmt.executeUpdate();
+            System.out.println("row");
+            System.out.println(row);
             return Constants.STATUS_SUCCESS;
         }catch(Exception e) {
             return Constants.STATUS_ERROR;
@@ -40,9 +42,9 @@ public class NotificationServices extends databaseConnection {
             while(rs.next()){
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("addressID", rs.getInt("AddressID"));
-                jsonObject.put("EmailNotification", rs.getBoolean("EmailNotification"));
-                jsonObject.put("PhoneNotification", rs.getBoolean("PhoneNotification"));
-                jsonObject.put("ServicePhoneCalls", rs.getBoolean("ServicePhoneCalls"));
+                jsonObject.put("emailNotification", rs.getBoolean("EmailNotification"));
+                jsonObject.put("phoneNotification", rs.getBoolean("PhoneNotification"));
+                jsonObject.put("servicePhoneCalls", rs.getBoolean("ServicePhoneCalls"));
                 jsonArray.put(jsonObject);
             }
             return jsonArray;

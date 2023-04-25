@@ -33,9 +33,9 @@
                 <td>{{ address.city }}</td>
                 <td>{{ address.state }}</td>
                 <td>{{ address.zipcode }}</td>
-                <td @click="address.EmailNotification=!address.EmailNotification">{{ address.EmailNotification }}</td>
-                <td @click="address.PhoneNotification=!address.PhoneNotification">{{ address.PhoneNotification }}</td>
-                <td @click="address.ServicePhoneCalls=!address.ServicePhoneCalls">{{ address.ServicePhoneCalls }}</td>
+                <td @click="address.emailNotification=!address.emailNotification">{{ address.emailNotification }}</td>
+                <td @click="address.phoneNotification=!address.phoneNotification">{{ address.phoneNotification }}</td>
+                <td @click="address.servicePhoneCalls=!address.servicePhoneCalls">{{ address.servicePhoneCalls }}</td>
                 <!-- <td style="text-align: center;">
                   <span style="cursor: pointer;" title="Delete Your Address" @click="deleteAddress(address)" class="mdi mdi-delete"></span>
                   <span style="cursor: pointer;" title="Edit Your Address" @click="$router.push({name: 'EditAddress', params: {addressID: address.AddressID}})" class="mdi mdi-home-edit-outline"></span>
@@ -72,13 +72,15 @@ export default {
     },
     methods: {
         getPreferences() {
+            this.preferences = []
+            this.showPreferences = false;
             this.$userHttp.post('/get-notification-preference', {
                 userID: this.$session.get('UserID')
             }).then((response) => {
-                console.log(response.data);
+                console.log(response.data.Data);
                 this.preferences = response.data.Data;
                 for (let i = 0; i < this.preferences.length; i++) {
-                        this.$userHttp.post(
+                    this.$userHttp.post(
                     '/get-addresses-by-id', 
                     {
                         addressID: this.preferences[i].addressID
@@ -100,7 +102,7 @@ export default {
                 
             })
         },
-        savePreferences(address){
+        savePreferences(){
         this.$Swal.fire({
           title: "Are you sure?",
           text: "You want to save these preferences?",
@@ -109,30 +111,33 @@ export default {
         }).then((result) => {
           if(result.value){
             // this.addresses[0].userID = this.$session.get('UserID'),
-            this.$userHttp.post('/save-notification-preference', 
-            address
-            ).then((response) => {
-              if(response.data.Status == "Success"){
-                this.$Swal.fire({
-                  text: "Your preference was saved! ",
-                  title: "Success",
-                  icon: "success"
-                });
-                this.getPreferences();
-              } else {
-                this.$Swal.fire({
-                  text: "Some error occurred! Please Try Again.",
-                  icon: "error"
+            for (let index = 0; index < this.preferences.length; index++) {
+                this.$userHttp.post('/save-notification-preference', 
+                this.preferences[index]
+                ).then((response) => {
+                if(response.data.Status == "Success"){
+                    this.$Swal.fire({
+                    text: "Your preference was saved! ",
+                    title: "Success",
+                    icon: "success"
+                    });
+                    this.getPreferences();
+                } else {
+                    this.$Swal.fire({
+                    text: "Some error occurred! Please Try Again.",
+                    icon: "error"
+                    })
+                }
+                console.log(response.data);
+                }).catch((err) => {
+                console.log("err", err);
+                    this.$Swal.fire({
+                    text: "Some error occurred! Please Try Again.",
+                    icon: "error"
+                    })
                 })
-              }
-              console.log(response.data);
-            }).catch((err) => {
-              console.log("err", err);
-                this.$Swal.fire({
-                  text: "Some error occurred! Please Try Again.",
-                  icon: "error"
-                })
-            })
+            }
+            
           }
         })
         }
