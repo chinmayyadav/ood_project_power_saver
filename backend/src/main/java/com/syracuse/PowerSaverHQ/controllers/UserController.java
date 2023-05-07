@@ -18,6 +18,7 @@ public class UserController {
     private UserService userService;
     @Autowired
     private EmailService emailService;
+
     @RequestMapping(value = "/register-user",headers = "Accept=application/json", method = RequestMethod.POST)
     public ResponseEntity<Object> registerUser(@RequestBody UserDetails user) {
         JSONObject jsObj = new JSONObject();

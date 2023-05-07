@@ -22,7 +22,9 @@
                             <label for="state" class="form-label">Name:</label>
                             <select class="form-control" v-model="appliance.applianceID">
                             <option value="">Select Appliance</option>
-                            <option v-for="(mast_appliance, id) in masterAppliances" :key="id" :value="mast_appliance.id" >{{ mast_appliance.name }}</option>
+                            <option v-for="(mast_appliance, id) in masterAppliances" :key="id" :value="mast_appliance.id" >
+                                {{ mast_appliance.name }} - Rating: {{ mast_appliance.rating }}
+                            </option>
                             </select>
                     </div>
                     <div class="mb-3">
@@ -44,7 +46,7 @@
                         </div>
                     </div>
                     </div>
-                    <button type="submit" class="btn btn-success">Save Address</button>
+                    <button type="submit" class="btn btn-success">Save Appliance</button>
                 </form>
             </div>
           </div>
@@ -80,6 +82,8 @@ export default {
         getAllMasterAppliances(){
             this.$userHttp.post('/get-all-appliances', {
             }).then((resp) => {
+                const unique = [...new Set(resp.data.Data.map((item) => item.name))];
+                console.log(unique);
                 this.masterAppliances = resp.data.Data;
             })
         },

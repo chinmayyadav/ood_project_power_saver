@@ -95,13 +95,18 @@ export default {
             this.$Swal.fire({
                 icon: 'question',
                 title: 'Are you sure?',
-                text: `This will pay a total amount of ${bill.ElectricityAmount+bill.GasAmount} from your saved payment method.` 
+                text: `This will pay a total amount of ${(bill.ElectricityAmount+bill.GasAmount).toFixed(2)} from your saved payment method.` 
             }).then((result) => {
                 if(result.value){
                     this.$userHttp.post('pay-bill', {
                         billID: bill.ID
                     }).then((response) => {
-
+                        this.$Swal.fire({
+                          text: "Bill Paid Successfully! ",
+                          title: "Success",
+                          icon: "success",
+                        })
+                        this.getUnpaidBills();
                         console.log(response.data);
                     }).catch((err) => {
                         console.log("err", err);
