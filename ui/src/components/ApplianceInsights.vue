@@ -6,7 +6,8 @@
             </div>
             <div class="col-sm-6" style=" margin-top: auto;
     margin-bottom: auto;">
-               <h4>Herein you can see how much you your usage of appliances compare with those in your neighbourhood. </h4> 
+               <h4>Herein you can see how much
+                 your usage of appliances compare with those in your neighbourhood. </h4> 
             </div>
         </div>
       </div>

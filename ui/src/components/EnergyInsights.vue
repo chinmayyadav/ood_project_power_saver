@@ -21,7 +21,7 @@ export default {
         var myChart = echarts.init(document.getElementById('energy_insights'));
         myChart.setOption({
         title: {
-            text: 'Your comparison with your neighbour of energy usage'
+            text: 'Your v/s Your neighbours in energy usage'
         },
         tooltip: {},
         xAxis: {
@@ -30,7 +30,7 @@ export default {
         yAxis: {},
         series: [
             {
-            name: 'sales',
+            name: 'energy consumption in kWH',
             type: 'bar',
             data: [5, 35]
             }
